@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build",
+    "allowJs": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "target": "ES2015",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ES6",
+      "DOM"
+    ],
+    "types": ["node"]
+  }
+}

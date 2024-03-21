@@ -1,0 +1,22 @@
+{
+  "name": "pnml-moddle-converter",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./build/index.js",
+  "types": "./src/types/index.d.ts",
+  "scripts": {
+    "dev": "npx nodemon -L",
+    "start": "npm run build && node build/index.js",
+    "build": "rimraf ./build && tsc"
+  },
+  "keywords": ["pnml", "moddle", "convert"],
+  "author": "Tom Lichtenstein",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "xmlbuilder2": "^3.1.1"
+  }
+}
