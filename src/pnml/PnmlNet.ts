@@ -1,13 +1,21 @@
 import Serializable from "../helper/Serializable";
-import { PnmlXmlNet } from "../types/pnml/PnmlXml";
-import { IPnmlNet, IPnmlNetData } from "../types/pnml/PnmlNet";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import { IPnmlPage } from "../types/pnml/PnmlPage";
-import PnmlPage from "./PnmlPage";
+import PnmlPage, { IPnmlPage } from "./PnmlPage";
+import ISerializable from "../helper/Serializable";
+import { PnmlXmlNet } from "./interfaces/PnmlXml";
 
 export enum PnmlNetType {
   PtNet = "http://www.pnml.org/version-2009/grammar/ptnet"
 }
+
+export interface IPnmlNetData {
+  id: string;
+  type: string;
+  pages: IPnmlPage[];
+  name?: string | undefined;
+}
+
+export interface IPnmlNet extends IPnmlNetData, ISerializable {}
 
 export default class PnmlNet extends Serializable implements IPnmlNet {
   id: string;

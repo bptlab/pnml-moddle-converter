@@ -1,6 +1,6 @@
 import { create } from "xmlbuilder2";
-import { ModdleXmlDefinitions } from "../types/moddle/ModdleXml";
 import ModdleDefinitions from "../moddle/ModdleDefinitions";
+import { ModdleXmlDefinitions } from "../moddle/interfaces/ModdleXml";
 
 export function parseModdleXml(xml: string): ModdleDefinitions {
   const parsedXml = ((create(xml).end({ format: 'object' }) as any)['ptn:definitions'] as ModdleXmlDefinitions);

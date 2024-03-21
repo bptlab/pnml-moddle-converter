@@ -4,9 +4,14 @@ This module provides a parser and serializer for .pnml files and Moddle.js XML f
 
 ## Usage
 
-The usage is illustrated in `index.ts`:
-
 ```typescript
+import { 
+  parseModdleXml, 
+  parsePnmlXml, 
+  convertModdleToPnml, 
+  convertPnmlToModdle,
+} from "pnml-moddle-converter";
+
 const moddleXml = '<?xml version="1.0" encoding="UTF-8"?>...';
 const pnmlXml = '<?xml version="1.0" encoding="UTF-8"?>...';
 
@@ -16,6 +21,8 @@ const moddleDefinitions = parseModdleXml(moddleXml);
 moddleDefinitions.serialize();
 // Convert a ModdleDefinitions object into a PnmlDocument object
 convertModdleToPnml(moddleDefinitions);
+// Directly convert a Moddle XML to a PNML
+convertModdleXmlToPnmlXml(moddleXml);
 
 // Parse a PNML file specifying a place transition net
 const pnmlDocument = parsePnmlXml(pnmlXml);
@@ -23,15 +30,6 @@ const pnmlDocument = parsePnmlXml(pnmlXml);
 pnmlDocument.serialize();
 // Convert a PnmlDocument object into a ModdleDefinitions object
 convertPnmlToModdle(pnmlDocument);
-```
-
-To run the `index.ts` file, please use one of the following commands:
-
-```bash
-npm start
-```
-
-```bash
-# Enable autorestart after changes
-npm run dev
+// Directly convert a PNML to a Moddle XML
+convertPnmlXmlToModdleXml(moddleXml);
 ```

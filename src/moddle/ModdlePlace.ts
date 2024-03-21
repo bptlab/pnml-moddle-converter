@@ -1,8 +1,22 @@
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
 import Serializable from "../helper/Serializable";
-import { IModdlePlace, IModdlePlaceData } from "../types/moddle/ModdlePlace";
-import { ModdleXmlPlace, ModdleXmlShape } from "../types/moddle/ModdleXml";
-import { ModdleBounds } from "../types/moddle/ModdleElement";
+import ISerializable from "../helper/Serializable";
+import { ModdleXmlPlace, ModdleXmlShape } from "./interfaces/ModdleXml";
+import { IModdleDiagramNode } from "./interfaces/ModdleDiagramNode";
+import { ModdleBounds } from "./interfaces/ModdleBounds";
+
+export interface IModdlePlaceData {
+  id: string;
+  name?: string | undefined;
+  marking: number;
+  bounds?: ModdleBounds | undefined;
+  labelBounds?: ModdleBounds | undefined;
+}
+
+export interface IModdlePlace extends IModdlePlaceData, IModdleDiagramNode, ISerializable {
+  getDiagramDataForSerialization(): ModdleXmlShape;
+  parseFromShape(shape: ModdleXmlShape): void;
+}
 
 export default class ModdlePlace extends Serializable implements IModdlePlace {
 

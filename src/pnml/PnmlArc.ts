@@ -1,7 +1,16 @@
 import Serializable from "../helper/Serializable";
-import { PnmlXmlArc } from "../types/pnml/PnmlXml";
-import { IPnmlArc, IPnmlArcData } from "../types/pnml/PnmlArc";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
+import ISerializable from "../helper/Serializable";
+import { PnmlXmlArc } from "./interfaces/PnmlXml";
+
+export interface IPnmlArcData {
+  id: string;
+  source: string;
+  target: string;
+  weight?: number | undefined;
+}
+
+export interface IPnmlArc extends IPnmlArcData, ISerializable {}
 
 export default class PnmlArc extends Serializable implements IPnmlArc {
 

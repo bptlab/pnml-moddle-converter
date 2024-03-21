@@ -1,13 +1,19 @@
 import Serializable from "../helper/Serializable";
-import { PnmlXmlPage } from "../types/pnml/PnmlXml";
-import { IPnmlArc } from "../types/pnml/PnmlArc";
-import { IPnmlTransition } from "../types/pnml/PnmlTransition";
-import { IPnmlPlace } from "../types/pnml/PnmlPlace";
-import { IPnmlPage, IPnmlPageData } from "../types/pnml/PnmlPage";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import PnmlPlace from "./PnmlPlace";
-import PnmlTransition from "./PnmlTransition";
-import PnmlArc from "./PnmlArc";
+import PnmlPlace, { IPnmlPlace } from "./PnmlPlace";
+import PnmlTransition, { IPnmlTransition } from "./PnmlTransition";
+import PnmlArc, { IPnmlArc } from "./PnmlArc";
+import ISerializable from "../helper/Serializable";
+import { PnmlXmlPage } from "./interfaces/PnmlXml";
+
+export interface IPnmlPageData {
+  id: string;
+  places: IPnmlPlace[];
+  transitions: IPnmlTransition[];
+  arcs: IPnmlArc[];
+}
+
+export interface IPnmlPage extends IPnmlPageData, ISerializable {}
 
 export default class PnmlPage extends Serializable implements IPnmlPage {
 

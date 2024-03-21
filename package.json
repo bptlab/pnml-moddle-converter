@@ -2,11 +2,10 @@
   "name": "pnml-moddle-converter",
   "version": "0.1.0",
   "description": "",
-  "main": "./build/index.js",
-  "types": "./src/types/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/types/index.d.ts",
   "scripts": {
     "dev": "npx nodemon -L",
-    "start": "npm run build && node build/index.js",
     "build": "rimraf ./build && tsc"
   },
   "keywords": ["pnml", "moddle", "convert"],
@@ -18,5 +17,11 @@
   },
   "dependencies": {
     "xmlbuilder2": "^3.1.1"
-  }
+  },
+  "files": [
+    "build/**/*",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ]
 }

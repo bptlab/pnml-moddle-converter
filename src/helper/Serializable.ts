@@ -1,6 +1,15 @@
 import { create } from 'xmlbuilder2';
 import { ExpandObject, XMLBuilder } from 'xmlbuilder2/lib/interfaces';
-import ISerializable from '../types/helper/Serializable';
+
+export default interface ISerializable {
+  children: ISerializable[];
+  serialize(): string;
+  importChildren(xmlBuilder: XMLBuilder): void;
+  getDataForSerialization(): ExpandObject;
+  toXmlBuilder(): XMLBuilder;
+  getXmlBuilder(node: ExpandObject): XMLBuilder;
+  parseFromObject(element: ExpandObject): ISerializable;
+}
 
 export default abstract class Serializable implements ISerializable {
   parseFromObject(element: ExpandObject): ISerializable {
@@ -25,7 +34,9 @@ export default abstract class Serializable implements ISerializable {
     });
   }
 
-  abstract getDataForSerialization(): ExpandObject;
+  getDataForSerialization(): ExpandObject {
+    throw new Error('Method not implemented.');
+  }
 
   toXmlBuilder(): XMLBuilder {
     const xmlBuilder = this.getXmlBuilder(this.getDataForSerialization());

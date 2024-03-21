@@ -2,6 +2,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "build",
+    "declaration": true,
+    "declarationDir": "build/types",
     "allowJs": true,
     "strict": true,
     "noImplicitAny": true,
@@ -10,6 +12,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+
     "lib": [
       "ES6",
       "DOM"
