@@ -12,6 +12,8 @@ npm i --save pnml-moddle-converter
 
 ## Usage
 
+The package can be used as follows (the example can be found in `dev.ts`):
+
 ```typescript
 import { 
   parseModdleXml, 
@@ -41,7 +43,7 @@ const pnmlXml2 = pnmlDocument.serialize();
 // Convert a PnmlDocument object into a ModdleDefinitions object
 const moddleDefinitionsFromPnml = convertPnmlToModdle(pnmlDocument);
 // Directly convert a PNML to a Moddle XML
-const moddleXmlFromPnmlXml = convertPnmlXmlToModdleXml(moddleXml);
+const moddleXmlFromPnmlXml = convertPnmlXmlToModdleXml(pnmlXml);
 ```
 
 ## Development
