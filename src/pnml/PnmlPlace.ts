@@ -1,7 +1,6 @@
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
 import { PnmlPosition } from "./interfaces/PnmlPosition";
-import ISerializable from "../helper/Serializable";
 import { PnmlXmlPlace } from "./interfaces/PnmlXml";
 
 export interface IPnmlPlaceData {
@@ -15,7 +14,7 @@ export interface IPnmlPlaceData {
 
 export interface IPnmlPlace extends IPnmlPlaceData, ISerializable {}
 
-export default class PnmlPlace extends Serializable implements IPnmlPlace {
+export class PnmlPlace extends Serializable implements IPnmlPlace {
 
   id: string;
   label: string | undefined;

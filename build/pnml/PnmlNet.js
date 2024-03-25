@@ -1,16 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PnmlNetType = void 0;
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-const PnmlPage_1 = __importDefault(require("./PnmlPage"));
+exports.PnmlNet = exports.PnmlNetType = void 0;
+const Serializable_1 = require("../helper/Serializable");
+const PnmlPage_1 = require("./PnmlPage");
 var PnmlNetType;
 (function (PnmlNetType) {
     PnmlNetType["PtNet"] = "http://www.pnml.org/version-2009/grammar/ptnet";
 })(PnmlNetType || (exports.PnmlNetType = PnmlNetType = {}));
-class PnmlNet extends Serializable_1.default {
+class PnmlNet extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, type, name, pages = [] } = data;
@@ -38,9 +35,9 @@ class PnmlNet extends Serializable_1.default {
         if (!Array.isArray(page)) {
             page = [page];
         }
-        const pages = page.map((page) => PnmlPage_1.default.parseFromObject(page));
+        const pages = page.map((page) => PnmlPage_1.PnmlPage.parseFromObject(page));
         return new PnmlNet({ id, type, name, pages });
     }
 }
-exports.default = PnmlNet;
+exports.PnmlNet = PnmlNet;
 //# sourceMappingURL=PnmlNet.js.map

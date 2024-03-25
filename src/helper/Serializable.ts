@@ -1,7 +1,7 @@
 import { create } from 'xmlbuilder2';
 import { ExpandObject, XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 
-export default interface ISerializable {
+export interface ISerializable {
   children: ISerializable[];
   serialize(): string;
   importChildren(xmlBuilder: XMLBuilder): void;
@@ -11,7 +11,7 @@ export default interface ISerializable {
   parseFromObject(element: ExpandObject): ISerializable;
 }
 
-export default abstract class Serializable implements ISerializable {
+export abstract class Serializable implements ISerializable {
   parseFromObject(element: ExpandObject): ISerializable {
     throw new Error('Method not implemented.');
   }

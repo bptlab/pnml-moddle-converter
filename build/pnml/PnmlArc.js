@@ -1,10 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-class PnmlArc extends Serializable_1.default {
+exports.PnmlArc = void 0;
+const Serializable_1 = require("../helper/Serializable");
+class PnmlArc extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, weight, source, target } = data;
@@ -34,5 +32,5 @@ class PnmlArc extends Serializable_1.default {
         return new PnmlArc({ id, source, target, weight });
     }
 }
-exports.default = PnmlArc;
+exports.PnmlArc = PnmlArc;
 //# sourceMappingURL=PnmlArc.js.map

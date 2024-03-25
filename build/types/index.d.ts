@@ -1,3 +1,14 @@
+export { ModdleArc } from './moddle/ModdleArc';
+export { ModdleDefinitions } from './moddle/ModdleDefinitions';
+export { ModdlePTNet } from './moddle/ModdlePTNet';
+export { ModdlePlace } from './moddle/ModdlePlace';
+export { ModdleTransition } from './moddle/ModdleTransition';
+export { PnmlArc } from './pnml/PnmlArc';
+export { PnmlDocument } from './pnml/PnmlDocument';
+export { PnmlNet } from './pnml/PnmlNet';
+export { PnmlPage } from './pnml/PnmlPage';
+export { PnmlPlace } from './pnml/PnmlPlace';
+export { PnmlTransition } from './pnml/PnmlTransition';
 export { parseModdleXml } from './parser/moddleParser';
 export { parsePnmlXml } from './parser/pnmlParser';
 export { convertModdleToPnml, convertModdleXmlToPnmlXml } from './converter/moddleToPnml';

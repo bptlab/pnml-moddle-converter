@@ -1,11 +1,11 @@
-import ModdleDefinitions from "../moddle/ModdleDefinitions";
+import { ModdleDefinitions } from "../moddle/ModdleDefinitions";
 import { parseModdleXml } from "../parser/moddleParser";
-import PnmlArc from "../pnml/PnmlArc";
-import PnmlDocument from "../pnml/PnmlDocument";
-import PnmlNet, { PnmlNetType } from "../pnml/PnmlNet";
-import PnmlPage from "../pnml/PnmlPage";
-import PnmlPlace from "../pnml/PnmlPlace";
-import PnmlTransition from "../pnml/PnmlTransition";
+import { PnmlArc } from "../pnml/PnmlArc";
+import { PnmlDocument } from "../pnml/PnmlDocument";
+import { PnmlNet, PnmlNetType } from "../pnml/PnmlNet";
+import { PnmlPage } from "../pnml/PnmlPage";
+import { PnmlPlace } from "../pnml/PnmlPlace";
+import { PnmlTransition } from "../pnml/PnmlTransition";
 
 const initialMarkingOffset = { x: 22, y: 20 };
 

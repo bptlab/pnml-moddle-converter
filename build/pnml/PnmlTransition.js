@@ -1,10 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-class PnmlTransition extends Serializable_1.default {
+exports.PnmlTransition = void 0;
+const Serializable_1 = require("../helper/Serializable");
+class PnmlTransition extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, label, nodePosition, labelOffset } = data;
@@ -57,5 +55,5 @@ class PnmlTransition extends Serializable_1.default {
         return new PnmlTransition({ id, label, nodePosition, labelOffset });
     }
 }
-exports.default = PnmlTransition;
+exports.PnmlTransition = PnmlTransition;
 //# sourceMappingURL=PnmlTransition.js.map

@@ -1,5 +1,5 @@
 import { ExpandObject, XMLBuilder } from 'xmlbuilder2/lib/interfaces';
-export default interface ISerializable {
+export interface ISerializable {
     children: ISerializable[];
     serialize(): string;
     importChildren(xmlBuilder: XMLBuilder): void;
@@ -8,8 +8,14 @@ export default interface ISerializable {
     getXmlBuilder(node: ExpandObject): XMLBuilder;
     parseFromObject(element: ExpandObject): ISerializable;
 }
-export default abstract class Serializable implements ISerializable {
+export declare abstract class Serializable implements ISerializable {
+    parseFromObject(element: ExpandObject): ISerializable;
     children: ISerializable[];
+    serialize(): string;
     serializeModdle(): string;
+    importChildren(xmlBuilder: XMLBuilder): void;
+    getDataForSerialization(): ExpandObject;
+    toXmlBuilder(): XMLBuilder;
+    getXmlBuilder(node: ExpandObject): XMLBuilder;
     static parseFromObject(element: ExpandObject): ISerializable;
 }

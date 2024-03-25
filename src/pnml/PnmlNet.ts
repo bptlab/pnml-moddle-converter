@@ -1,7 +1,6 @@
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import PnmlPage, { IPnmlPage } from "./PnmlPage";
-import ISerializable from "../helper/Serializable";
+import { PnmlPage, IPnmlPage } from "./PnmlPage";
 import { PnmlXmlNet } from "./interfaces/PnmlXml";
 
 export enum PnmlNetType {
@@ -17,7 +16,7 @@ export interface IPnmlNetData {
 
 export interface IPnmlNet extends IPnmlNetData, ISerializable {}
 
-export default class PnmlNet extends Serializable implements IPnmlNet {
+export class PnmlNet extends Serializable implements IPnmlNet {
   id: string;
   type: string;
   pages: IPnmlPage[];

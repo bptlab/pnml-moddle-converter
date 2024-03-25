@@ -1,14 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertPnmlXmlToModdleXml = exports.convertPnmlToModdle = void 0;
-const ModdleArc_1 = __importDefault(require("../moddle/ModdleArc"));
-const ModdleDefinitions_1 = __importDefault(require("../moddle/ModdleDefinitions"));
-const ModdlePTNet_1 = __importDefault(require("../moddle/ModdlePTNet"));
-const ModdlePlace_1 = __importDefault(require("../moddle/ModdlePlace"));
-const ModdleTransition_1 = __importDefault(require("../moddle/ModdleTransition"));
+const ModdleArc_1 = require("../moddle/ModdleArc");
+const ModdleDefinitions_1 = require("../moddle/ModdleDefinitions");
+const ModdlePTNet_1 = require("../moddle/ModdlePTNet");
+const ModdlePlace_1 = require("../moddle/ModdlePlace");
+const ModdleTransition_1 = require("../moddle/ModdleTransition");
 const pnmlParser_1 = require("../parser/pnmlParser");
 const placeWidth = 30;
 const placeHeight = 30;
@@ -33,7 +30,7 @@ function convertPnmlToModdle(pnmlDocument) {
     const page = pnmlNet.pages[0];
     const places = page.places.map((place) => {
         var _a;
-        return (new ModdlePlace_1.default({
+        return (new ModdlePlace_1.ModdlePlace({
             id: place.id,
             name: place.label,
             marking: (_a = place.initialMarking) !== null && _a !== void 0 ? _a : 0,
@@ -51,7 +48,7 @@ function convertPnmlToModdle(pnmlDocument) {
             } : undefined,
         }));
     });
-    const transitions = page.transitions.map((transition) => (new ModdleTransition_1.default({
+    const transitions = page.transitions.map((transition) => (new ModdleTransition_1.ModdleTransition({
         id: transition.id,
         name: transition.label,
         bounds: transition.nodePosition ? {
@@ -77,10 +74,10 @@ function convertPnmlToModdle(pnmlDocument) {
         if (source && target && source.bounds && target.bounds) {
             const sourceIsLeft = source.bounds.x < target.bounds.x;
             const sourceIsOver = source.bounds.y < target.bounds.y;
-            const sourceHorizontalOffset = Math.round((source instanceof ModdlePlace_1.default ? placeWidth : transitionWidth) / 2);
-            const sourceVerticalOffset = Math.round((source instanceof ModdlePlace_1.default ? placeHeight : transitionHeight) / 2);
-            const targetHorizontalOffset = Math.round((target instanceof ModdlePlace_1.default ? placeWidth : transitionWidth) / 2);
-            const targetVerticalOffset = Math.round((target instanceof ModdlePlace_1.default ? placeHeight : transitionHeight) / 2);
+            const sourceHorizontalOffset = Math.round((source instanceof ModdlePlace_1.ModdlePlace ? placeWidth : transitionWidth) / 2);
+            const sourceVerticalOffset = Math.round((source instanceof ModdlePlace_1.ModdlePlace ? placeHeight : transitionHeight) / 2);
+            const targetHorizontalOffset = Math.round((target instanceof ModdlePlace_1.ModdlePlace ? placeWidth : transitionWidth) / 2);
+            const targetVerticalOffset = Math.round((target instanceof ModdlePlace_1.ModdlePlace ? placeHeight : transitionHeight) / 2);
             sourceWaypoint = {
                 x: sourceIsLeft
                     ? source.bounds.x + sourceHorizontalOffset
@@ -104,7 +101,7 @@ function convertPnmlToModdle(pnmlDocument) {
                 ? sourceWaypoint.y + (targetWaypoint.y - sourceWaypoint.y) / 2
                 : targetWaypoint.y + (sourceWaypoint.y - targetWaypoint.y) / 2);
         }
-        const moddleArc = new ModdleArc_1.default({
+        const moddleArc = new ModdleArc_1.ModdleArc({
             id: arc.id,
             source: arc.source,
             target: arc.target,
@@ -119,14 +116,14 @@ function convertPnmlToModdle(pnmlDocument) {
         });
         return moddleArc;
     });
-    const ptNet = new ModdlePTNet_1.default({
+    const ptNet = new ModdlePTNet_1.ModdlePTNet({
         id: pnmlDocument.nets[0].id,
         name: pnmlNet.name,
         places,
         transitions,
         arcs,
     });
-    const definitions = new ModdleDefinitions_1.default({ ptNet });
+    const definitions = new ModdleDefinitions_1.ModdleDefinitions({ ptNet });
     return definitions;
 }
 exports.convertPnmlToModdle = convertPnmlToModdle;

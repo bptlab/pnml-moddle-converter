@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Serializable = void 0;
 const xmlbuilder2_1 = require("xmlbuilder2");
 class Serializable {
     constructor() {
@@ -38,5 +39,5 @@ class Serializable {
         throw new Error('Method not implemented.');
     }
 }
-exports.default = Serializable;
+exports.Serializable = Serializable;
 //# sourceMappingURL=Serializable.js.map

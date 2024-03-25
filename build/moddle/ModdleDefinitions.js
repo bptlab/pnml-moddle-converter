@@ -1,11 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-const ModdlePTNet_1 = __importDefault(require("./ModdlePTNet"));
-class ModdleDefinitions extends Serializable_1.default {
+exports.ModdleDefinitions = void 0;
+const Serializable_1 = require("../helper/Serializable");
+const ModdlePTNet_1 = require("./ModdlePTNet");
+class ModdleDefinitions extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { ptNet } = data;
@@ -49,7 +47,7 @@ class ModdleDefinitions extends Serializable_1.default {
         const ptNet = element["ptn:ptNet"];
         if (!ptNet)
             throw new Error("No PTNet found in Definitions");
-        const definitions = new ModdleDefinitions({ ptNet: ModdlePTNet_1.default.parseFromObject(ptNet) });
+        const definitions = new ModdleDefinitions({ ptNet: ModdlePTNet_1.ModdlePTNet.parseFromObject(ptNet) });
         const diagram = element["ptnDi:ptnDiagram"];
         if (diagram && diagram["ptnDi:ptnPlane"]) {
             const plane = diagram["ptnDi:ptnPlane"];
@@ -86,5 +84,5 @@ class ModdleDefinitions extends Serializable_1.default {
         return definitions;
     }
 }
-exports.default = ModdleDefinitions;
+exports.ModdleDefinitions = ModdleDefinitions;
 //# sourceMappingURL=ModdleDefinitions.js.map

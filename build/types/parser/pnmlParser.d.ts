@@ -1,2 +1,2 @@
-import PnmlDocument from "../pnml/PnmlDocument";
+import { PnmlDocument } from "../pnml/PnmlDocument";
 export declare function parsePnmlXml(xml: string): PnmlDocument;

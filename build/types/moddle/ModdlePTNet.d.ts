@@ -1,9 +1,8 @@
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { IModdlePlace } from "./ModdlePlace";
 import { IModdleTransition } from "./ModdleTransition";
 import { IModdleArc } from "./ModdleArc";
-import ISerializable from "../helper/Serializable";
 import { ModdleXmlPTNet } from "./interfaces/ModdleXml";
 export interface IModdlePTNetData {
     id: string;
@@ -14,7 +13,7 @@ export interface IModdlePTNetData {
 }
 export interface IModdlePTNet extends IModdlePTNetData, ISerializable {
 }
-export default class ModdlePTNet extends Serializable implements IModdlePTNet {
+export declare class ModdlePTNet extends Serializable implements IModdlePTNet {
     id: string;
     name?: string | undefined;
     places: IModdlePlace[];

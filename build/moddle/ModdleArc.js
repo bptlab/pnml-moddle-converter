@@ -1,10 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-class ModdleArc extends Serializable_1.default {
+exports.ModdleArc = void 0;
+const Serializable_1 = require("../helper/Serializable");
+class ModdleArc extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, weight, source, target, waypoints, labelBounds } = data;
@@ -71,5 +69,5 @@ class ModdleArc extends Serializable_1.default {
         } : undefined);
     }
 }
-exports.default = ModdleArc;
+exports.ModdleArc = ModdleArc;
 //# sourceMappingURL=ModdleArc.js.map

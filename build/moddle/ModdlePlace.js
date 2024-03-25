@@ -1,10 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-class ModdlePlace extends Serializable_1.default {
+exports.ModdlePlace = void 0;
+const Serializable_1 = require("../helper/Serializable");
+class ModdlePlace extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, name, marking, bounds, labelBounds } = data;
@@ -67,5 +65,5 @@ class ModdlePlace extends Serializable_1.default {
         } : undefined);
     }
 }
-exports.default = ModdlePlace;
+exports.ModdlePlace = ModdlePlace;
 //# sourceMappingURL=ModdlePlace.js.map

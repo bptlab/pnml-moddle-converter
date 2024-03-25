@@ -1,14 +1,13 @@
 import { ExpandObject, XMLBuilder } from "xmlbuilder2/lib/interfaces";
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { IModdlePTNet } from "./ModdlePTNet";
-import ISerializable from "../helper/Serializable";
 import { ModdleXmlDefinitions } from "./interfaces/ModdleXml";
 export interface IModdleDefinitionsData {
     ptNet: IModdlePTNet;
 }
 export interface IModdleDefinitions extends IModdleDefinitionsData, ISerializable {
 }
-export default class ModdleDefinitions extends Serializable implements IModdleDefinitions {
+export declare class ModdleDefinitions extends Serializable implements IModdleDefinitions {
     ptNet: IModdlePTNet;
     constructor(data: IModdleDefinitionsData);
     getDataForSerialization(): ExpandObject;

@@ -1,5 +1,5 @@
 import { create } from "xmlbuilder2";
-import ModdleDefinitions from "../moddle/ModdleDefinitions";
+import { ModdleDefinitions } from "../moddle/ModdleDefinitions";
 import { ModdleXmlDefinitions } from "../moddle/interfaces/ModdleXml";
 
 export function parseModdleXml(xml: string): ModdleDefinitions {

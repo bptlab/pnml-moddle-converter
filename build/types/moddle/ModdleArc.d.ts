@@ -1,6 +1,5 @@
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import Serializable from "../helper/Serializable";
-import ISerializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { ModdleXmlArc, ModdleXmlEdge } from "./interfaces/ModdleXml";
 import { IModdleDiagramNode } from "./interfaces/ModdleDiagramNode";
 import { ModdleBounds } from "./interfaces/ModdleBounds";
@@ -17,7 +16,7 @@ export interface IModdleArc extends IModdleArcData, IModdleDiagramNode, ISeriali
     getDiagramDataForSerialization(): ModdleXmlEdge;
     parseFromEdge(edge: ModdleXmlEdge): void;
 }
-export default class ModdleArc extends Serializable implements IModdleArc {
+export declare class ModdleArc extends Serializable implements IModdleArc {
     id: string;
     source: string;
     target: string;

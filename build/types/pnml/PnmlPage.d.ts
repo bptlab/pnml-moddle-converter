@@ -1,9 +1,8 @@
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
 import { IPnmlPlace } from "./PnmlPlace";
 import { IPnmlTransition } from "./PnmlTransition";
 import { IPnmlArc } from "./PnmlArc";
-import ISerializable from "../helper/Serializable";
 import { PnmlXmlPage } from "./interfaces/PnmlXml";
 export interface IPnmlPageData {
     id: string;
@@ -13,7 +12,7 @@ export interface IPnmlPageData {
 }
 export interface IPnmlPage extends IPnmlPageData, ISerializable {
 }
-export default class PnmlPage extends Serializable implements IPnmlPage {
+export declare class PnmlPage extends Serializable implements IPnmlPage {
     id: string;
     places: IPnmlPlace[];
     transitions: IPnmlTransition[];

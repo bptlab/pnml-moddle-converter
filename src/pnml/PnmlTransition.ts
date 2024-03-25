@@ -1,7 +1,6 @@
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { PnmlPosition } from "./interfaces/PnmlPosition";
-import ISerializable from "../helper/Serializable";
 import { PnmlXmlTransition } from "./interfaces/PnmlXml";
 
 export interface IPnmlTransitionData {
@@ -13,7 +12,7 @@ export interface IPnmlTransitionData {
 
 export interface IPnmlTransition extends IPnmlTransitionData, ISerializable {}
 
-export default class PnmlTransition extends Serializable implements IPnmlTransition {
+export class PnmlTransition extends Serializable implements IPnmlTransition {
 
   id: string;
   label: string | undefined;

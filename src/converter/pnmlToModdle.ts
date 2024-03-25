@@ -1,10 +1,10 @@
-import ModdleArc from "../moddle/ModdleArc";
-import ModdleDefinitions from "../moddle/ModdleDefinitions";
-import ModdlePTNet from "../moddle/ModdlePTNet";
-import ModdlePlace from "../moddle/ModdlePlace";
-import ModdleTransition from "../moddle/ModdleTransition";
+import { ModdleArc } from "../moddle/ModdleArc";
+import { ModdleDefinitions } from "../moddle/ModdleDefinitions";
+import { ModdlePTNet } from "../moddle/ModdlePTNet";
+import { ModdlePlace } from "../moddle/ModdlePlace";
+import { ModdleTransition } from "../moddle/ModdleTransition";
 import { parsePnmlXml } from "../parser/pnmlParser";
-import PnmlDocument from "../pnml/PnmlDocument";
+import { PnmlDocument } from "../pnml/PnmlDocument";
 
 const placeWidth = 30;
 const placeHeight = 30;

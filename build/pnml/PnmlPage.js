@@ -1,13 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Serializable_1 = __importDefault(require("../helper/Serializable"));
-const PnmlPlace_1 = __importDefault(require("./PnmlPlace"));
-const PnmlTransition_1 = __importDefault(require("./PnmlTransition"));
-const PnmlArc_1 = __importDefault(require("./PnmlArc"));
-class PnmlPage extends Serializable_1.default {
+exports.PnmlPage = void 0;
+const Serializable_1 = require("../helper/Serializable");
+const PnmlPlace_1 = require("./PnmlPlace");
+const PnmlTransition_1 = require("./PnmlTransition");
+const PnmlArc_1 = require("./PnmlArc");
+class PnmlPage extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, places = [], transitions = [], arcs = [] } = data;
@@ -33,11 +31,11 @@ class PnmlPage extends Serializable_1.default {
         if (!Array.isArray(arc)) {
             arc = [arc];
         }
-        const places = place.map((place) => PnmlPlace_1.default.parseFromObject(place));
-        const transitions = transition.map((transition) => PnmlTransition_1.default.parseFromObject(transition));
-        const arcs = arc.map((arc) => PnmlArc_1.default.parseFromObject(arc));
+        const places = place.map((place) => PnmlPlace_1.PnmlPlace.parseFromObject(place));
+        const transitions = transition.map((transition) => PnmlTransition_1.PnmlTransition.parseFromObject(transition));
+        const arcs = arc.map((arc) => PnmlArc_1.PnmlArc.parseFromObject(arc));
         return new PnmlPage({ id, places, transitions, arcs });
     }
 }
-exports.default = PnmlPage;
+exports.PnmlPage = PnmlPage;
 //# sourceMappingURL=PnmlPage.js.map

@@ -1,14 +1,18 @@
 {
   "name": "pnml-moddle-converter",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "The pnml-moddle-converter is a TypeScript library that provides functionality for converting between PNML (Petri Net Markup Language) and Moddle XML formats. It includes classes for representing different elements of a Petri net, such as places, transitions, and arcs, in both PNML and Moddle formats. The library also includes parsers for reading PNML and Moddle XML documents, and converters for transforming between these two formats.",
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
     "dev": "npx nodemon -L",
     "build": "rimraf ./build && tsc"
   },
-  "keywords": ["pnml", "moddle", "convert"],
+  "keywords": [
+    "pnml",
+    "moddle",
+    "convert"
+  ],
   "author": "Tom Lichtenstein",
   "license": "MIT",
   "devDependencies": {
@@ -17,6 +21,10 @@
   },
   "dependencies": {
     "xmlbuilder2": "^3.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bptlab/pnml-moddle-converter.git"
   },
   "files": [
     "build/**/*",

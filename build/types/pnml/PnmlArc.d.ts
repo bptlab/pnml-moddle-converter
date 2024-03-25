@@ -1,6 +1,5 @@
-import Serializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import ISerializable from "../helper/Serializable";
 import { PnmlXmlArc } from "./interfaces/PnmlXml";
 export interface IPnmlArcData {
     id: string;
@@ -10,7 +9,7 @@ export interface IPnmlArcData {
 }
 export interface IPnmlArc extends IPnmlArcData, ISerializable {
 }
-export default class PnmlArc extends Serializable implements IPnmlArc {
+export declare class PnmlArc extends Serializable implements IPnmlArc {
     id: string;
     source: string;
     target: string;

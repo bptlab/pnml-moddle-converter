@@ -1,7 +1,6 @@
-import Serializable from "../helper/Serializable";
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import PnmlNet, { IPnmlNet } from "./PnmlNet";
-import ISerializable from "../helper/Serializable";
+import { PnmlNet, IPnmlNet } from "./PnmlNet";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { PnmlXmlDocument } from "./interfaces/PnmlXml";
 
 const nameSpace = "http://www.pnml.org/version-2009/grammar/pnml";
@@ -12,7 +11,7 @@ export interface IPnmlDocumentData {
 
 export interface IPnmlDocument extends IPnmlDocumentData, ISerializable {}
 
-export default class PnmlDocument extends Serializable implements IPnmlDocument {
+export class PnmlDocument extends Serializable implements IPnmlDocument {
 
   nets: IPnmlNet[];
 

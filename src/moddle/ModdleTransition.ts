@@ -1,6 +1,5 @@
 import { ExpandObject } from "xmlbuilder2/lib/interfaces";
-import Serializable from "../helper/Serializable";
-import ISerializable from "../helper/Serializable";
+import { Serializable, ISerializable } from "../helper/Serializable";
 import { ModdleXmlShape, ModdleXmlTransition } from "./interfaces/ModdleXml";
 import { ModdleBounds } from "./interfaces/ModdleBounds";
 import { IModdleDiagramNode } from "./interfaces/ModdleDiagramNode";
@@ -17,7 +16,7 @@ export interface IModdleTransition extends IModdleTransitionData, IModdleDiagram
   parseFromShape(shape: ModdleXmlShape): void;
 }
 
-export default class ModdleTransition extends Serializable implements IModdleTransition {
+export class ModdleTransition extends Serializable implements IModdleTransition {
 
   id: string;
   name?: string | undefined;
