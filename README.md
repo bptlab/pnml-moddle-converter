@@ -18,18 +18,18 @@ const pnmlXml = '<?xml version="1.0" encoding="UTF-8"?>...';
 // Parse a XML file including a Moddle.js place transition net specification
 const moddleDefinitions = parseModdleXml(moddleXml);
 // Serialize a ModdleDefinitions object into a string
-moddleDefinitions.serialize();
+const moddleXml2 = moddleDefinitions.serialize();
 // Convert a ModdleDefinitions object into a PnmlDocument object
-convertModdleToPnml(moddleDefinitions);
+const pnmlDocumentFromModdle = convertModdleToPnml(moddleDefinitions);
 // Directly convert a Moddle XML to a PNML
-convertModdleXmlToPnmlXml(moddleXml);
+const pnmlXmlFromModdleXml = convertModdleXmlToPnmlXml(moddleXml);
 
 // Parse a PNML file specifying a place transition net
 const pnmlDocument = parsePnmlXml(pnmlXml);
 // Serialize a PnmlDocument object into a string
-pnmlDocument.serialize();
+const pnmlXml2 = pnmlDocument.serialize();
 // Convert a PnmlDocument object into a ModdleDefinitions object
-convertPnmlToModdle(pnmlDocument);
+const moddleDefinitionsFromPnml = convertPnmlToModdle(pnmlDocument);
 // Directly convert a PNML to a Moddle XML
-convertPnmlXmlToModdleXml(moddleXml);
+const moddleXmlFromPnmlXml = convertPnmlXmlToModdleXml(moddleXml);
 ```
