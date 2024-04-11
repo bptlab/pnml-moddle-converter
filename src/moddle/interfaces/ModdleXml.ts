@@ -39,7 +39,7 @@ export interface ModdleXmlDiagram {
 
 export interface ModdleXmlPlane {
   "@id": string;
-  "@ptNet": string;
+  "@ptnElement": string;
   "ptnDi:ptnShape"?: ModdleXmlShape[] | ModdleXmlShape | undefined;
   "ptnDi:ptnEdge"?: ModdleXmlEdge[] | ModdleXmlEdge | undefined;
 }

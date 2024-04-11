@@ -43,7 +43,7 @@ export class ModdleDefinitions extends Serializable implements IModdleDefinition
       "@id": `${this.ptNet.id}_di`,
       "ptnDi:ptnPlane": {
         "@id": `${this.ptNet.id}_plane`,
-        "@ptNet": this.ptNet.id,
+        "@ptnElement": this.ptNet.id,
         "ptnDi:ptnShape": [
           ...this.ptNet.places.map(place => place.getDiagramDataForSerialization()),
           ...this.ptNet.transitions.map(transition => transition.getDiagramDataForSerialization()),

@@ -8,37 +8,37 @@
     <ptn:arc id="arc_2" source="transition_1" target="place_2" weight="1"/>
   </ptn:ptNet>
   <ptnDi:ptnDiagram id="ptNet_1_di">
-    <ptnDi:ptnPlane id="ptNet_1_plane" ptNet="ptNet_1">
+    <ptnDi:ptnPlane id="ptNet_1_plane" ptnElement="ptNet_1">
       <ptnDi:ptnShape id="place_1_di" ptnElement="place_1">
-        <dc:Bounds x="100" y="100" width="50" height="50"/>
+        <dc:Bounds x="100" y="100" width="30" height="30"/>
         <ptnDi:label>
-          <dc:Bounds x="100" y="100" width="50" height="50"/>
+          <dc:Bounds x="100" y="100" width="30" height="30"/>
         </ptnDi:label>
       </ptnDi:ptnShape>
       <ptnDi:ptnShape id="place_2_di" ptnElement="place_2">
-        <dc:Bounds x="300" y="100" width="50" height="50"/>
+        <dc:Bounds x="300" y="100" width="30" height="30"/>
         <ptnDi:label>
-          <dc:Bounds x="300" y="100" width="50" height="50"/>
+          <dc:Bounds x="300" y="100" width="30" height="30"/>
         </ptnDi:label>
       </ptnDi:ptnShape>
       <ptnDi:ptnShape id="transition_1_di" ptnElement="transition_1">
-        <dc:Bounds x="200" y="100" width="50" height="50"/>
+        <dc:Bounds x="200" y="100" width="30" height="50"/>
         <ptnDi:label>
-          <dc:Bounds x="200" y="100" width="50" height="50"/>
+          <dc:Bounds x="200" y="100" width="30" height="30"/>
         </ptnDi:label>
       </ptnDi:ptnShape>
       <ptnDi:ptnEdge id="arc_1_di" ptnElement="arc_1">
-        <ptnDi:waypoint x="150" y="125"/>
-        <ptnDi:waypoint x="200" y="125"/>
+        <ptnDi:waypoint x="115" y="85"/>
+        <ptnDi:waypoint x="185" y="125"/>
         <ptnDi:label>
-          <dc:Bounds x="150" y="125" width="50" height="50"/>
+          <dc:Bounds x="150" y="105" width="30" height="30"/>
         </ptnDi:label>
       </ptnDi:ptnEdge>
       <ptnDi:ptnEdge id="arc_2_di" ptnElement="arc_2">
-        <ptnDi:waypoint x="250" y="125"/>
-        <ptnDi:waypoint x="300" y="125"/>
+        <ptnDi:waypoint x="215" y="75"/>
+        <ptnDi:waypoint x="285" y="115"/>
         <ptnDi:label>
-          <dc:Bounds x="250" y="125" width="50" height="50"/>
+          <dc:Bounds x="250" y="95" width="30" height="30"/>
         </ptnDi:label>
       </ptnDi:ptnEdge>
     </ptnDi:ptnPlane>
