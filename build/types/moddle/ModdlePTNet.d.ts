@@ -5,7 +5,7 @@ import { IModdleTransition } from "./ModdleTransition";
 import { IModdleArc } from "./ModdleArc";
 import { ModdleXmlPTNet } from "./interfaces/ModdleXml";
 export interface IModdlePTNetData {
-    id: string;
+    id?: string | undefined;
     name?: string | undefined;
     places: IModdlePlace[];
     transitions: IModdleTransition[];
@@ -14,7 +14,7 @@ export interface IModdlePTNetData {
 export interface IModdlePTNet extends IModdlePTNetData, ISerializable {
 }
 export declare class ModdlePTNet extends Serializable implements IModdlePTNet {
-    id: string;
+    id?: string | undefined;
     name?: string | undefined;
     places: IModdlePlace[];
     transitions: IModdleTransition[];

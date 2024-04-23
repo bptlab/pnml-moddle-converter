@@ -30,7 +30,7 @@ class ModdleDefinitions extends Serializable_1.Serializable {
             "@id": `${this.ptNet.id}_di`,
             "ptnDi:ptnPlane": {
                 "@id": `${this.ptNet.id}_plane`,
-                "@ptNet": this.ptNet.id,
+                "@ptnElement": this.ptNet.id,
                 "ptnDi:ptnShape": [
                     ...this.ptNet.places.map(place => place.getDiagramDataForSerialization()),
                     ...this.ptNet.transitions.map(transition => transition.getDiagramDataForSerialization()),
@@ -51,19 +51,27 @@ class ModdleDefinitions extends Serializable_1.Serializable {
         const diagram = element["ptnDi:ptnDiagram"];
         if (diagram && diagram["ptnDi:ptnPlane"]) {
             const plane = diagram["ptnDi:ptnPlane"];
-            let shapes = (_a = plane["ptnDi:ptnShape"]) !== null && _a !== void 0 ? _a : [];
+            let shapes = (_a = plane["ptnDi:ptnShape"]) !== null && _a !== void 0 ? _a : (plane["#"] ? plane["#"]
+                .filter((shape) => shape["ptnDi:ptnShape"] !== undefined)
+                .flatMap((shape) => Array.isArray(shape["ptnDi:ptnShape"])
+                ? shape["ptnDi:ptnShape"]
+                : [shape["ptnDi:ptnShape"]]) : []);
             if (!Array.isArray(shapes)) {
                 shapes = [shapes];
             }
             const shapeArray = shapes;
-            let edge = (_b = plane["ptnDi:ptnEdge"]) !== null && _b !== void 0 ? _b : [];
-            if (!Array.isArray(edge)) {
-                edge = [edge];
+            let edges = (_b = plane["ptnDi:ptnEdge"]) !== null && _b !== void 0 ? _b : (plane["#"] ? plane["#"]
+                .filter((edge) => edge["ptnDi:ptnEdge"] !== undefined)
+                .flatMap((edge) => Array.isArray(edge["ptnDi:ptnEdge"])
+                ? edge["ptnDi:ptnEdge"]
+                : [edge["ptnDi:ptnEdge"]]) : []);
+            if (!Array.isArray(edges)) {
+                edges = [edges];
             }
-            const edgeArray = edge;
+            const edgeArray = edges;
             const { places, transitions, arcs } = definitions.ptNet;
             places.forEach(place => {
-                const shape = shapeArray.find((shape) => shape["@ptnElement"] === place.id);
+                const shape = shapeArray.find(shape => shape["@ptnElement"] === place.id);
                 if (shape) {
                     place.parseFromShape(shape);
                 }

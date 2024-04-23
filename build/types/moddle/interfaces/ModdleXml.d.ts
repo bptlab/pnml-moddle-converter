@@ -6,8 +6,17 @@ export interface ModdleXmlDefinitions {
     "ptnDi:ptnDiagram"?: ModdleXmlDiagram | undefined;
 }
 export interface ModdleXmlPTNet {
-    "@id": string;
+    "@id"?: string | undefined;
     "@name"?: string | undefined;
+    "@"?: {
+        id: string;
+        name: string;
+    } | undefined;
+    "#"?: {
+        "ptn:place"?: ModdleXmlPlace | ModdleXmlPlace[];
+        "ptn:transition"?: ModdleXmlTransition | ModdleXmlTransition[];
+        "ptn:arc"?: ModdleXmlArc | ModdleXmlArc[];
+    }[] | undefined;
     "ptn:place"?: ModdleXmlPlace[] | ModdleXmlPlace | undefined;
     "ptn:transition"?: ModdleXmlTransition[] | ModdleXmlTransition | undefined;
     "ptn:arc"?: ModdleXmlArc[] | ModdleXmlArc | undefined;
@@ -32,10 +41,18 @@ export interface ModdleXmlDiagram {
     "ptnDi:ptnPlane"?: ModdleXmlPlane | undefined;
 }
 export interface ModdleXmlPlane {
-    "@id": string;
-    "@ptNet": string;
+    "@id"?: string | undefined;
+    "@ptnElement"?: string | undefined;
+    "@"?: {
+        id: string;
+        ptnElement: string;
+    } | undefined;
     "ptnDi:ptnShape"?: ModdleXmlShape[] | ModdleXmlShape | undefined;
     "ptnDi:ptnEdge"?: ModdleXmlEdge[] | ModdleXmlEdge | undefined;
+    "#"?: {
+        "ptnDi:ptnShape"?: ModdleXmlShape | ModdleXmlShape[];
+        "ptnDi:ptnEdge"?: ModdleXmlEdge | ModdleXmlEdge[];
+    }[] | undefined;
 }
 export interface ModdleXmlShape {
     "@id": string;

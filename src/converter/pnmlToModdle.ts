@@ -6,11 +6,11 @@ import { ModdleTransition } from "../moddle/ModdleTransition";
 import { parsePnmlXml } from "../parser/pnmlParser";
 import { PnmlDocument } from "../pnml/PnmlDocument";
 
-const placeWidth = 30;
-const placeHeight = 30;
-const transitionWidth = 30;
+const placeWidth = 50;
+const placeHeight = 50;
+const transitionWidth = 50;
 const transitionHeight = 50;
-const labelWidth = 30;
+const labelWidth = 50;
 const labelHeight = 30;
 
 export function convertPnmlToModdle(pnmlDocument: PnmlDocument): ModdleDefinitions {

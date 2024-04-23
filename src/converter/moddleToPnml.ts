@@ -54,7 +54,7 @@ export function convertModdleToPnml(moddleDefinitions: ModdleDefinitions): PnmlD
   });
 
   const net = new PnmlNet({
-    id: moddleDefinitions.ptNet.id,
+    id: moddleDefinitions.ptNet.id ?? 'ptnet_id_1',
     name: moddleDefinitions.ptNet.name,
     type: PnmlNetType.PtNet,
     pages: [page],

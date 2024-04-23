@@ -10,6 +10,7 @@ const PnmlPlace_1 = require("../pnml/PnmlPlace");
 const PnmlTransition_1 = require("../pnml/PnmlTransition");
 const initialMarkingOffset = { x: 22, y: 20 };
 function convertModdleToPnml(moddleDefinitions) {
+    var _a;
     const places = moddleDefinitions.ptNet.places.map((place) => (new PnmlPlace_1.PnmlPlace({
         id: place.id,
         label: place.name,
@@ -49,7 +50,7 @@ function convertModdleToPnml(moddleDefinitions) {
         arcs
     });
     const net = new PnmlNet_1.PnmlNet({
-        id: moddleDefinitions.ptNet.id,
+        id: (_a = moddleDefinitions.ptNet.id) !== null && _a !== void 0 ? _a : 'ptnet_id_1',
         name: moddleDefinitions.ptNet.name,
         type: PnmlNet_1.PnmlNetType.PtNet,
         pages: [page],

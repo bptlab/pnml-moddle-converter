@@ -3,10 +3,10 @@ import { Serializable, ISerializable } from "../helper/Serializable";
 import { ModdlePlace, IModdlePlace } from "./ModdlePlace";
 import { ModdleTransition, IModdleTransition } from "./ModdleTransition";
 import { ModdleArc, IModdleArc } from "./ModdleArc";
-import { ModdleXmlPTNet } from "./interfaces/ModdleXml";
+import { ModdleXmlArc, ModdleXmlPTNet, ModdleXmlPlace, ModdleXmlTransition } from "./interfaces/ModdleXml";
 
 export interface IModdlePTNetData {
-  id: string;
+  id?: string | undefined;
   name?: string | undefined;
   places: IModdlePlace[];
   transitions: IModdleTransition[];
@@ -17,7 +17,7 @@ export interface IModdlePTNet extends IModdlePTNetData, ISerializable {}
 
 export class ModdlePTNet extends Serializable implements IModdlePTNet {
 
-  id: string;
+  id?: string | undefined;
   name?: string | undefined;
   places: IModdlePlace[];
   transitions: IModdleTransition[];
@@ -44,16 +44,25 @@ export class ModdlePTNet extends Serializable implements IModdlePTNet {
   }
 
   static parseFromObject(element: ModdleXmlPTNet): ModdlePTNet {
-    const id = element["@id"];
-    const name = element["@name"];
+    const id = element["@id"] ?? (element["@"] ? element["@"]["id"] : undefined);
+    const name = element["@name"] ?? (element["@"] ? element["@"]["id"] : undefined);
 
     let places: ModdlePlace[] = [];
+
     if (element["ptn:place"]) {
       if (Array.isArray(element["ptn:place"])) {
-        places = element["ptn:place"].map((place: any) => ModdlePlace.parseFromObject(place));
+        places = element["ptn:place"].map(place => ModdlePlace.parseFromObject(place));
       } else {
         places = [ModdlePlace.parseFromObject(element["ptn:place"])];
       }
+    } else if (element["#"] !== undefined) {
+      places = element["#"]
+        .filter(child => child["ptn:place"] !== undefined)
+        .flatMap((child) => {
+          const place = child["ptn:place"] as ModdleXmlPlace | ModdleXmlPlace[];
+          return Array.isArray(place) ? place : [place]
+        })
+        .map(place => ModdlePlace.parseFromObject(place));
     }
 
     let transitions: IModdleTransition[] = [];
@@ -63,6 +72,14 @@ export class ModdlePTNet extends Serializable implements IModdlePTNet {
       } else {
         transitions = [ModdleTransition.parseFromObject(element["ptn:transition"])];
       }
+    } else if (element["#"] !== undefined) {
+      transitions = element["#"]
+        .filter(child => child["ptn:transition"] !== undefined)
+        .flatMap((child) => {
+          const transition = child["ptn:transition"] as ModdleXmlTransition | ModdleXmlTransition[];
+          return Array.isArray(transition) ? transition : [transition]
+        })
+        .map(transition => ModdleTransition.parseFromObject(transition));
     }
 
     let arcs: IModdleArc[] = [];
@@ -72,6 +89,14 @@ export class ModdlePTNet extends Serializable implements IModdlePTNet {
       } else {
         arcs = [ModdleArc.parseFromObject(element["ptn:arc"])];
       }
+    } else if (element["#"] !== undefined) {
+      arcs = element["#"]
+        .filter(child => child["ptn:arc"] !== undefined)
+        .flatMap((child) => {
+          const arc = child["ptn:arc"] as ModdleXmlArc | ModdleXmlArc[];
+          return Array.isArray(arc) ? arc : [arc]
+        })
+        .map(arc => ModdleArc.parseFromObject(arc));
     }
 
     return new ModdlePTNet({ id, name, places, transitions, arcs });

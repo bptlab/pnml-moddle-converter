@@ -7,11 +7,11 @@ const ModdlePTNet_1 = require("../moddle/ModdlePTNet");
 const ModdlePlace_1 = require("../moddle/ModdlePlace");
 const ModdleTransition_1 = require("../moddle/ModdleTransition");
 const pnmlParser_1 = require("../parser/pnmlParser");
-const placeWidth = 30;
-const placeHeight = 30;
-const transitionWidth = 30;
+const placeWidth = 50;
+const placeHeight = 50;
+const transitionWidth = 50;
 const transitionHeight = 50;
-const labelWidth = 30;
+const labelWidth = 50;
 const labelHeight = 30;
 function convertPnmlToModdle(pnmlDocument) {
     if (pnmlDocument.nets.length === 0) {
