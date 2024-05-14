@@ -10,6 +10,7 @@ export interface IModdleDefinitions extends IModdleDefinitionsData, ISerializabl
 export declare class ModdleDefinitions extends Serializable implements IModdleDefinitions {
     ptNet: IModdlePTNet;
     constructor(data: IModdleDefinitionsData);
+    getChildren(): ISerializable[];
     getDataForSerialization(): ExpandObject;
     /**
      * Definitions specifies the elements as well as graphical information of the model.

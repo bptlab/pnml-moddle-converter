@@ -15,7 +15,9 @@ class PnmlNet extends Serializable_1.Serializable {
         this.type = type.toString();
         this.pages = pages;
         this.name = name;
-        this.children = pages;
+    }
+    getChildren() {
+        return this.pages;
     }
     getDataForSerialization() {
         const net = { "@id": this.id, "@type": this.type };

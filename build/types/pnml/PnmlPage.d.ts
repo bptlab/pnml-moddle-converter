@@ -18,6 +18,7 @@ export declare class PnmlPage extends Serializable implements IPnmlPage {
     transitions: IPnmlTransition[];
     arcs: IPnmlArc[];
     constructor(data: IPnmlPageData);
+    getChildren(): ISerializable[];
     getDataForSerialization(): ExpandObject;
     static parseFromObject(element: PnmlXmlPage): IPnmlPage;
 }

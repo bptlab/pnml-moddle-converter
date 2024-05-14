@@ -31,7 +31,10 @@ export class ModdlePTNet extends Serializable implements IModdlePTNet {
     this.places = places;
     this.transitions = transitions;
     this.arcs = arcs;
-    this.children = [...places, ...transitions, ...arcs];
+  }
+
+  getChildren(): ISerializable[] {
+    return [...this.places, ...this.transitions, ...this.arcs];
   }
 
   getDataForSerialization(): ExpandObject {

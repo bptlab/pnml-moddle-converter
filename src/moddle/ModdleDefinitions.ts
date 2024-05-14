@@ -17,7 +17,10 @@ export class ModdleDefinitions extends Serializable implements IModdleDefinition
     super();
     const { ptNet } = data;
     this.ptNet = ptNet;
-    this.children = [ptNet];
+  }
+
+  getChildren(): ISerializable[] {
+    return [this.ptNet];
   }
 
   getDataForSerialization(): ExpandObject {

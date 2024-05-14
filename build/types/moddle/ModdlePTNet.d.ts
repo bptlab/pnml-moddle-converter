@@ -20,6 +20,7 @@ export declare class ModdlePTNet extends Serializable implements IModdlePTNet {
     transitions: IModdleTransition[];
     arcs: IModdleArc[];
     constructor(data: IModdlePTNetData);
+    getChildren(): ISerializable[];
     getDataForSerialization(): ExpandObject;
     static parseFromObject(element: ModdleXmlPTNet): ModdlePTNet;
 }

@@ -29,7 +29,10 @@ export class PnmlNet extends Serializable implements IPnmlNet {
     this.type = type.toString();
     this.pages = pages;
     this.name = name;
-    this.children = pages;
+  }
+
+  getChildren(): ISerializable[] {
+    return this.pages;
   }
 
   getDataForSerialization(): ExpandObject {

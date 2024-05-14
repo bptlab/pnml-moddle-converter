@@ -8,7 +8,9 @@ class ModdleDefinitions extends Serializable_1.Serializable {
         super();
         const { ptNet } = data;
         this.ptNet = ptNet;
-        this.children = [ptNet];
+    }
+    getChildren() {
+        return [this.ptNet];
     }
     getDataForSerialization() {
         const definitions = {

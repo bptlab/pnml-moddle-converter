@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Serializable = void 0;
 const xmlbuilder2_1 = require("xmlbuilder2");
 class Serializable {
-    constructor() {
-        this.children = [];
-    }
     parseFromObject(element) {
         throw new Error('Method not implemented.');
+    }
+    getChildren() {
+        return [];
     }
     serialize() {
         const xmlBuilder = this.toXmlBuilder();
@@ -18,7 +18,7 @@ class Serializable {
         return xmlBuilder.end({ prettyPrint: true });
     }
     importChildren(xmlBuilder) {
-        this.children.forEach((child) => {
+        this.getChildren().forEach((child) => {
             xmlBuilder.import(child.toXmlBuilder());
         });
     }

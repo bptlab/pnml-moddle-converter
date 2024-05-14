@@ -28,7 +28,10 @@ export class PnmlPage extends Serializable implements IPnmlPage {
     this.places = places;
     this.transitions = transitions;
     this.arcs = arcs;
-    this.children = [...places, ...transitions, ...arcs]
+  }
+
+  getChildren(): ISerializable[] {
+    return [...this.places, ...this.transitions, ...this.arcs];
   }
 
   getDataForSerialization(): ExpandObject {

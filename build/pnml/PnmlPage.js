@@ -13,7 +13,9 @@ class PnmlPage extends Serializable_1.Serializable {
         this.places = places;
         this.transitions = transitions;
         this.arcs = arcs;
-        this.children = [...places, ...transitions, ...arcs];
+    }
+    getChildren() {
+        return [...this.places, ...this.transitions, ...this.arcs];
     }
     getDataForSerialization() {
         const page = { "@id": this.id };

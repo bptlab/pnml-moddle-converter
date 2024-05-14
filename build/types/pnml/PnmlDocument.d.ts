@@ -10,6 +10,7 @@ export interface IPnmlDocument extends IPnmlDocumentData, ISerializable {
 export declare class PnmlDocument extends Serializable implements IPnmlDocument {
     nets: IPnmlNet[];
     constructor(data: IPnmlDocumentData);
+    getChildren(): ISerializable[];
     getDataForSerialization(): ExpandObject;
     static parseFromObject(element: PnmlXmlDocument): PnmlDocument;
 }

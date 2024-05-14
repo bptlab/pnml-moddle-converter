@@ -9,7 +9,9 @@ class PnmlDocument extends Serializable_1.Serializable {
         super();
         const { nets } = data;
         this.nets = nets;
-        this.children = nets;
+    }
+    getChildren() {
+        return this.nets;
     }
     getDataForSerialization() {
         const petriNetDocument = { "@xmlns": nameSpace };

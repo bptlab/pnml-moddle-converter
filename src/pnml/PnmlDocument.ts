@@ -19,7 +19,10 @@ export class PnmlDocument extends Serializable implements IPnmlDocument {
     super();
     const { nets } = data;
     this.nets = nets;
-    this.children = nets;
+  }
+
+  getChildren(): ISerializable[] {
+    return this.nets;
   }
 
   getDataForSerialization(): ExpandObject {

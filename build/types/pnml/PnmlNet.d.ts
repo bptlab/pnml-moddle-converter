@@ -19,6 +19,7 @@ export declare class PnmlNet extends Serializable implements IPnmlNet {
     pages: IPnmlPage[];
     name?: string | undefined;
     constructor(data: IPnmlNetData);
+    getChildren(): ISerializable[];
     getDataForSerialization(): ExpandObject;
     static parseFromObject(element: PnmlXmlNet): IPnmlNet;
 }
