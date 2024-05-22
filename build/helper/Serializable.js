@@ -40,4 +40,3 @@ class Serializable {
     }
 }
 exports.Serializable = Serializable;
-//# sourceMappingURL=Serializable.js.map

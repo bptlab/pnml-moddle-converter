@@ -74,4 +74,3 @@ class PnmlPlace extends Serializable_1.Serializable {
     }
 }
 exports.PnmlPlace = PnmlPlace;
-//# sourceMappingURL=PnmlPlace.js.map

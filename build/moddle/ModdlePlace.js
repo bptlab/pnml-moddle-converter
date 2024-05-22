@@ -66,4 +66,3 @@ class ModdlePlace extends Serializable_1.Serializable {
     }
 }
 exports.ModdlePlace = ModdlePlace;
-//# sourceMappingURL=ModdlePlace.js.map

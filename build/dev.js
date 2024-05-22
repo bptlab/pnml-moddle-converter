@@ -28,4 +28,3 @@ const pnmlXml2 = pnmlDocument.serialize();
 const moddleDefinitionsFromPnml = (0, pnmlToModdle_1.convertPnmlToModdle)(pnmlDocument);
 // Directly convert a PNML to a Moddle XML
 const moddleXmlFromPnmlXml = (0, pnmlToModdle_1.convertPnmlXmlToModdleXml)(pnmlXml);
-//# sourceMappingURL=dev.js.map

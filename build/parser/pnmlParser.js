@@ -8,4 +8,3 @@ function parsePnmlXml(xml) {
     return PnmlDocument_1.PnmlDocument.parseFromObject(parsedXml);
 }
 exports.parsePnmlXml = parsePnmlXml;
-//# sourceMappingURL=pnmlParser.js.map

@@ -56,4 +56,3 @@ class PnmlTransition extends Serializable_1.Serializable {
     }
 }
 exports.PnmlTransition = PnmlTransition;
-//# sourceMappingURL=PnmlTransition.js.map

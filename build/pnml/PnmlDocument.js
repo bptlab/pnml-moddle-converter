@@ -27,4 +27,3 @@ class PnmlDocument extends Serializable_1.Serializable {
     }
 }
 exports.PnmlDocument = PnmlDocument;
-//# sourceMappingURL=PnmlDocument.js.map

@@ -70,4 +70,3 @@ class ModdleArc extends Serializable_1.Serializable {
     }
 }
 exports.ModdleArc = ModdleArc;
-//# sourceMappingURL=ModdleArc.js.map

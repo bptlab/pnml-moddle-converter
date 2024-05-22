@@ -1,1 +1,0 @@
-{"version":3,"file":"pnmlParser.js","sourceRoot":"","sources":["../../src/parser/pnmlParser.ts"],"names":[],"mappings":";;;AAAA,6CAAqC;AACrC,uDAAoD;AAGpD,SAAgB,YAAY,CAAC,GAAW;IACtC,MAAM,SAAS,GAAK,IAAA,oBAAM,EAAC,GAAG,CAAC,CAAC,GAAG,CAAC,EAAE,MAAM,EAAE,QAAQ,EAAE,CAAS,CAAC,IAAwB,CAAC;IAC3F,OAAO,2BAAY,CAAC,eAAe,CAAC,SAAS,CAAiB,CAAC;AACjE,CAAC;AAHD,oCAGC"}

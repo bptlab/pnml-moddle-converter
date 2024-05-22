@@ -42,4 +42,3 @@ class PnmlNet extends Serializable_1.Serializable {
     }
 }
 exports.PnmlNet = PnmlNet;
-//# sourceMappingURL=PnmlNet.js.map

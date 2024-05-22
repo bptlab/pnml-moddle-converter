@@ -40,4 +40,3 @@ class PnmlPage extends Serializable_1.Serializable {
     }
 }
 exports.PnmlPage = PnmlPage;
-//# sourceMappingURL=PnmlPage.js.map

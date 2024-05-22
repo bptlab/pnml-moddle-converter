@@ -33,4 +33,3 @@ class PnmlArc extends Serializable_1.Serializable {
     }
 }
 exports.PnmlArc = PnmlArc;
-//# sourceMappingURL=PnmlArc.js.map

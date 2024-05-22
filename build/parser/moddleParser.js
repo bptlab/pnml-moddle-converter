@@ -8,4 +8,3 @@ function parseModdleXml(xml) {
     return ModdleDefinitions_1.ModdleDefinitions.parseFromObject(parsedXml);
 }
 exports.parseModdleXml = parseModdleXml;
-//# sourceMappingURL=moddleParser.js.map

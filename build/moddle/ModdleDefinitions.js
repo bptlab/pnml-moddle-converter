@@ -95,4 +95,3 @@ class ModdleDefinitions extends Serializable_1.Serializable {
     }
 }
 exports.ModdleDefinitions = ModdleDefinitions;
-//# sourceMappingURL=ModdleDefinitions.js.map

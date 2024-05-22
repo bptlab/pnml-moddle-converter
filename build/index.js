@@ -38,4 +38,3 @@ Object.defineProperty(exports, "convertModdleXmlToPnmlXml", { enumerable: true, 
 var pnmlToModdle_1 = require("./converter/pnmlToModdle");
 Object.defineProperty(exports, "convertPnmlToModdle", { enumerable: true, get: function () { return pnmlToModdle_1.convertPnmlToModdle; } });
 Object.defineProperty(exports, "convertPnmlXmlToModdleXml", { enumerable: true, get: function () { return pnmlToModdle_1.convertPnmlXmlToModdleXml; } });
-//# sourceMappingURL=index.js.map

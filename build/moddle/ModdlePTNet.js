@@ -87,4 +87,3 @@ class ModdlePTNet extends Serializable_1.Serializable {
     }
 }
 exports.ModdlePTNet = ModdlePTNet;
-//# sourceMappingURL=ModdlePTNet.js.map

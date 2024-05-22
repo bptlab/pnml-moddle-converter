@@ -62,4 +62,3 @@ class ModdleTransition extends Serializable_1.Serializable {
     }
 }
 exports.ModdleTransition = ModdleTransition;
-//# sourceMappingURL=ModdleTransition.js.map

@@ -132,4 +132,3 @@ function convertPnmlXmlToModdleXml(pnmlXml) {
     return convertPnmlToModdle(pnmlDocument).serialize();
 }
 exports.convertPnmlXmlToModdleXml = convertPnmlXmlToModdleXml;
-//# sourceMappingURL=pnmlToModdle.js.map
