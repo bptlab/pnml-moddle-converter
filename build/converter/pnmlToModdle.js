@@ -65,56 +65,80 @@ function convertPnmlToModdle(pnmlDocument) {
         } : undefined,
     })));
     const arcs = page.arcs.map((arc) => {
-        const source = [...places, ...transitions].find((node) => node.id === arc.source);
-        const target = [...places, ...transitions].find((node) => node.id === arc.target);
+        // Find the source and target nodes
+        const nodes = [...places, ...transitions];
+        const source = nodes.find((node) => node.id === arc.source);
+        const target = nodes.find((node) => node.id === arc.target);
+        // Initialize waypoints and label position
         let sourceWaypoint = { x: 0, y: 0 };
         let targetWaypoint = { x: 0, y: 0 };
-        let labelX = 0;
-        let labelY = 0;
         if (source && target && source.bounds && target.bounds) {
-            const sourceIsLeft = source.bounds.x < target.bounds.x;
-            const sourceIsOver = source.bounds.y < target.bounds.y;
-            const sourceHorizontalOffset = Math.round((source instanceof ModdlePlace_1.ModdlePlace ? placeWidth : transitionWidth) / 2);
-            const sourceVerticalOffset = Math.round((source instanceof ModdlePlace_1.ModdlePlace ? placeHeight : transitionHeight) / 2);
-            const targetHorizontalOffset = Math.round((target instanceof ModdlePlace_1.ModdlePlace ? placeWidth : transitionWidth) / 2);
-            const targetVerticalOffset = Math.round((target instanceof ModdlePlace_1.ModdlePlace ? placeHeight : transitionHeight) / 2);
-            sourceWaypoint = {
-                x: sourceIsLeft
-                    ? source.bounds.x + sourceHorizontalOffset
-                    : source.bounds.x - sourceHorizontalOffset,
-                y: sourceIsOver
-                    ? source.bounds.y + sourceVerticalOffset
-                    : source.bounds.y - sourceVerticalOffset,
-            };
-            targetWaypoint = {
-                x: sourceIsLeft
-                    ? target.bounds.x - targetHorizontalOffset
-                    : target.bounds.x + targetHorizontalOffset,
-                y: sourceIsOver
-                    ? target.bounds.y - targetVerticalOffset
-                    : target.bounds.y + targetVerticalOffset,
-            };
-            labelX = Math.round(sourceIsLeft
-                ? sourceWaypoint.x + (targetWaypoint.x - sourceWaypoint.x) / 2
-                : targetWaypoint.x + (sourceWaypoint.x - targetWaypoint.x) / 2);
-            labelY = Math.round(sourceIsOver
-                ? sourceWaypoint.y + (targetWaypoint.y - sourceWaypoint.y) / 2
-                : targetWaypoint.y + (sourceWaypoint.y - targetWaypoint.y) / 2);
+            const { x: sourceX, y: sourceY, width: sourceW, height: sourceH } = source.bounds;
+            const { x: targetX, y: targetY, width: targetW, height: targetH } = target.bounds;
+            // Determine if source and target are horizontally or vertically aligned
+            const sourceIsLeft = sourceX + sourceW < targetX;
+            const sourceIsRight = sourceX > targetX + targetW;
+            const horizontallyAligned = !sourceIsLeft && !sourceIsRight;
+            const sourceIsOver = sourceY + sourceH < targetY;
+            const sourceIsUnder = sourceY > targetY + targetH;
+            const verticallyAligned = !sourceIsOver && !sourceIsUnder;
+            // Check if the source or target is a place or transition
+            const sourceIsPlace = source instanceof ModdlePlace_1.ModdlePlace;
+            const targetIsPlace = target instanceof ModdlePlace_1.ModdlePlace;
+            // Set width and height defaults
+            const sourceWidth = sourceW !== null && sourceW !== void 0 ? sourceW : (sourceIsPlace ? placeWidth : transitionWidth);
+            const sourceHeight = sourceH !== null && sourceH !== void 0 ? sourceH : (sourceIsPlace ? placeHeight : transitionHeight);
+            const targetWidth = targetW !== null && targetW !== void 0 ? targetW : (targetIsPlace ? placeWidth : transitionWidth);
+            const targetHeight = targetH !== null && targetH !== void 0 ? targetH : (targetIsPlace ? placeHeight : transitionHeight);
+            const horizontalDistance = Math.abs((sourceX + sourceWidth / 2) - (targetX + targetWidth / 2));
+            const verticalDistance = Math.abs((sourceY + sourceHeight / 2) - (targetY + targetHeight / 2));
+            if (horizontalDistance >= verticalDistance) {
+                const sourceIsLeft = sourceX + sourceW < targetX;
+                sourceWaypoint = {
+                    x: horizontallyAligned
+                        ? sourceX + sourceWidth / 2
+                        : sourceIsLeft
+                            ? sourceX + sourceWidth
+                            : sourceX,
+                    y: sourceY + sourceHeight / 2
+                };
+                targetWaypoint = {
+                    x: horizontallyAligned
+                        ? targetX + targetWidth / 2
+                        : sourceIsLeft
+                            ? targetX
+                            : targetX + targetWidth,
+                    y: targetY + targetHeight / 2
+                };
+            }
+            else {
+                const sourceIsOver = sourceY + sourceH < targetY;
+                sourceWaypoint = {
+                    x: sourceX + sourceWidth / 2,
+                    y: verticallyAligned
+                        ? sourceY + sourceHeight / 2
+                        : sourceIsOver
+                            ? sourceY + sourceHeight
+                            : sourceY
+                };
+                targetWaypoint = {
+                    x: targetX + targetWidth / 2,
+                    y: verticallyAligned
+                        ? targetY + targetHeight / 2
+                        : sourceIsOver
+                            ? targetY
+                            : targetY + targetHeight
+                };
+            }
         }
-        const moddleArc = new ModdleArc_1.ModdleArc({
+        // Return the ModdleArc object
+        return new ModdleArc_1.ModdleArc({
             id: arc.id,
             source: arc.source,
             target: arc.target,
             weight: arc.weight,
             waypoints: [sourceWaypoint, targetWaypoint],
-            labelBounds: {
-                x: labelX,
-                y: labelY,
-                width: labelWidth,
-                height: labelHeight,
-            },
         });
-        return moddleArc;
     });
     const ptNet = new ModdlePTNet_1.ModdlePTNet({
         id: pnmlDocument.nets[0].id,

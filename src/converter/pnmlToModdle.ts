@@ -71,64 +71,93 @@ export function convertPnmlToModdle(pnmlDocument: PnmlDocument): ModdleDefinitio
   })));
 
   const arcs = page.arcs.map((arc) => {
+    // Find the source and target nodes
+    const nodes = [...places, ...transitions];
+    const source = nodes.find((node) => node.id === arc.source);
+    const target = nodes.find((node) => node.id === arc.target);
 
-    const source = [...places, ...transitions].find((node) => node.id === arc.source);
-    const target = [...places, ...transitions].find((node) => node.id === arc.target);
-
+    // Initialize waypoints and label position
     let sourceWaypoint = { x: 0, y: 0 };
     let targetWaypoint = { x: 0, y: 0 };
-    let labelX = 0;
-    let labelY = 0;
 
     if (source && target && source.bounds && target.bounds) {
-      const sourceIsLeft = source.bounds.x < target.bounds.x;
-      const sourceIsOver = source.bounds.y < target.bounds.y;
+      const { x: sourceX, y: sourceY, width: sourceW, height: sourceH } = source.bounds;
+      const { x: targetX, y: targetY, width: targetW, height: targetH } = target.bounds;
 
-      const sourceHorizontalOffset = Math.round((source instanceof ModdlePlace ? placeWidth : transitionWidth) / 2);
-      const sourceVerticalOffset = Math.round((source instanceof ModdlePlace ? placeHeight : transitionHeight) / 2);
-      const targetHorizontalOffset = Math.round((target instanceof ModdlePlace ? placeWidth : transitionWidth) / 2);
-      const targetVerticalOffset = Math.round((target instanceof ModdlePlace ? placeHeight : transitionHeight) / 2);
+      // Determine if source and target are horizontally or vertically aligned
+      const sourceIsLeft = sourceX + sourceW < targetX;
+      const sourceIsRight = sourceX > targetX + targetW;
+      const horizontallyAligned = !sourceIsLeft && !sourceIsRight;
+      const sourceIsOver = sourceY + sourceH < targetY;
+      const sourceIsUnder = sourceY > targetY + targetH;
+      const verticallyAligned = !sourceIsOver && !sourceIsUnder;
 
-      sourceWaypoint = {
-        x: sourceIsLeft 
-          ? source.bounds.x + sourceHorizontalOffset 
-          : source.bounds.x - sourceHorizontalOffset,
-        y: sourceIsOver 
-          ? source.bounds.y + sourceVerticalOffset 
-          : source.bounds.y - sourceVerticalOffset,
-      };
-      targetWaypoint = {
-        x: sourceIsLeft 
-          ? target.bounds.x - targetHorizontalOffset 
-          : target.bounds.x + targetHorizontalOffset,
-        y: sourceIsOver 
-          ? target.bounds.y - targetVerticalOffset 
-          : target.bounds.y + targetVerticalOffset,
-      };
 
-      labelX = Math.round(sourceIsLeft 
-        ? sourceWaypoint.x + (targetWaypoint.x - sourceWaypoint.x) / 2 
-        : targetWaypoint.x + (sourceWaypoint.x - targetWaypoint.x) / 2);
-      labelY = Math.round(sourceIsOver 
-        ? sourceWaypoint.y + (targetWaypoint.y - sourceWaypoint.y) / 2 
-        : targetWaypoint.y + (sourceWaypoint.y - targetWaypoint.y) / 2);
+      // Check if the source or target is a place or transition
+      const sourceIsPlace = source instanceof ModdlePlace;
+      const targetIsPlace = target instanceof ModdlePlace;
+
+      // Set width and height defaults
+      const sourceWidth = sourceW ?? (sourceIsPlace ? placeWidth : transitionWidth);
+      const sourceHeight = sourceH ?? (sourceIsPlace ? placeHeight : transitionHeight);
+      const targetWidth = targetW ?? (targetIsPlace ? placeWidth : transitionWidth);
+      const targetHeight = targetH ?? (targetIsPlace ? placeHeight : transitionHeight);
+
+      const horizontalDistance = Math.abs((sourceX + sourceWidth / 2) - (targetX + targetWidth / 2));
+      const verticalDistance = Math.abs((sourceY + sourceHeight / 2) - (targetY + targetHeight / 2));
+
+      if (horizontalDistance >= verticalDistance) {
+        const sourceIsLeft = sourceX + sourceW < targetX;
+        sourceWaypoint = {
+          x: horizontallyAligned
+            ? sourceX + sourceWidth / 2
+            : sourceIsLeft
+              ? sourceX + sourceWidth
+              : sourceX,
+          y: sourceY + sourceHeight / 2
+        }
+
+        targetWaypoint = {
+          x: horizontallyAligned
+            ? targetX + targetWidth / 2
+            : sourceIsLeft
+              ? targetX
+              : targetX + targetWidth,
+          y: targetY + targetHeight / 2
+        };
+
+      } else {
+        const sourceIsOver = sourceY + sourceH < targetY;
+        sourceWaypoint = {
+          x: sourceX + sourceWidth / 2,
+          y: verticallyAligned
+            ? sourceY + sourceHeight / 2
+            : sourceIsOver
+              ? sourceY + sourceHeight
+              : sourceY
+        }
+
+        targetWaypoint = {
+          x: targetX + targetWidth / 2,
+          y: verticallyAligned
+            ? targetY + targetHeight / 2
+            : sourceIsOver
+              ? targetY
+              : targetY + targetHeight
+        };
+      }
     }
 
-    const moddleArc = new ModdleArc({
+    // Return the ModdleArc object
+    return new ModdleArc({
       id: arc.id,
       source: arc.source,
       target: arc.target,
       weight: arc.weight,
       waypoints: [sourceWaypoint, targetWaypoint],
-      labelBounds: {
-        x: labelX,
-        y: labelY,
-        width: labelWidth,
-        height: labelHeight,
-      },
     });
-    return moddleArc;
   });
+
 
   const ptNet = new ModdlePTNet({
     id: pnmlDocument.nets[0].id,
