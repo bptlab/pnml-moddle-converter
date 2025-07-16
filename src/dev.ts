@@ -2,13 +2,23 @@
 // Run `npm run dev` to execute this file
 import fs from "fs";
 
-import { convertPnmlToModdle, convertPnmlXmlToModdleXml } from "./converter/pnmlToModdle";
+import {
+  convertPnmlToModdle,
+  convertPnmlXmlToModdleXml,
+} from "./converter/pnmlToModdle";
 import { parseModdleXml } from "./parser/moddleParser";
-import { convertModdleToPnml, convertModdleXmlToPnmlXml } from "./converter/moddleToPnml";
+import {
+  convertModdleToPnml,
+  convertModdleXmlToPnmlXml,
+} from "./converter/moddleToPnml";
 import { parsePnmlXml } from "./parser/pnmlParser";
 
-const moddleXml = fs.readFileSync("./resources/moddle/example.xml", { encoding: "utf-8" });
-const pnmlXml = fs.readFileSync("./resources/pnml/example.pnml", { encoding: "utf-8" });
+const moddleXml = fs.readFileSync("./resources/moddle/example2.xml", {
+  encoding: "utf-8",
+});
+const pnmlXml = fs.readFileSync("./resources/pnml/example.pnml", {
+  encoding: "utf-8",
+});
 
 // Parse a XML file including a Moddle.js place transition net specification
 const moddleDefinitions = parseModdleXml(moddleXml);
@@ -23,7 +33,10 @@ const pnmlXmlFromModdleXml = convertModdleXmlToPnmlXml(moddleXml);
 const pnmlDocument = parsePnmlXml(pnmlXml);
 // Serialize a PnmlDocument object into a string
 const pnmlXml2 = pnmlDocument.serialize();
+
 // Convert a PnmlDocument object into a ModdleDefinitions object
 const moddleDefinitionsFromPnml = convertPnmlToModdle(pnmlDocument);
 // Directly convert a PNML to a Moddle XML
 const moddleXmlFromPnmlXml = convertPnmlXmlToModdleXml(pnmlXml);
+
+const pnmlBack = convertModdleXmlToPnmlXml(moddleXmlFromPnmlXml);

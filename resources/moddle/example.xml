@@ -1,46 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ptn:definitions xmlns:ptn="http://bpt-lab.org/schemas/ptn" xmlns:ptnDi="http://bpt-lab.org/schemas/ptnDi" xmlns:dc="https://www.omg.org/spec/BPMN/20100501/DC.xsd">
-  <ptn:ptNet id="ptNet_1" name="Place Transition Net 1">
-    <ptn:place id="place_1" name="place_1" marking="1"/>
-    <ptn:place id="place_2" name="place_2" marking="0"/>
-    <ptn:transition id="transition_1" name="transition_1"/>
-    <ptn:arc id="arc_1" source="place_1" target="transition_1" weight="1"/>
-    <ptn:arc id="arc_2" source="transition_1" target="place_2" weight="1"/>
-  </ptn:ptNet>
-  <ptnDi:ptnDiagram id="ptNet_1_di">
-    <ptnDi:ptnPlane id="ptNet_1_plane" ptnElement="ptNet_1">
-      <ptnDi:ptnShape id="place_1_di" ptnElement="place_1">
-        <dc:Bounds x="100" y="100" width="30" height="30"/>
-        <ptnDi:label>
-          <dc:Bounds x="100" y="100" width="30" height="30"/>
-        </ptnDi:label>
-      </ptnDi:ptnShape>
-      <ptnDi:ptnShape id="place_2_di" ptnElement="place_2">
-        <dc:Bounds x="300" y="100" width="30" height="30"/>
-        <ptnDi:label>
-          <dc:Bounds x="300" y="100" width="30" height="30"/>
-        </ptnDi:label>
-      </ptnDi:ptnShape>
-      <ptnDi:ptnShape id="transition_1_di" ptnElement="transition_1">
-        <dc:Bounds x="200" y="100" width="30" height="50"/>
-        <ptnDi:label>
-          <dc:Bounds x="200" y="100" width="30" height="30"/>
-        </ptnDi:label>
-      </ptnDi:ptnShape>
-      <ptnDi:ptnEdge id="arc_1_di" ptnElement="arc_1">
-        <ptnDi:waypoint x="115" y="85"/>
-        <ptnDi:waypoint x="185" y="125"/>
-        <ptnDi:label>
-          <dc:Bounds x="150" y="105" width="30" height="30"/>
-        </ptnDi:label>
-      </ptnDi:ptnEdge>
-      <ptnDi:ptnEdge id="arc_2_di" ptnElement="arc_2">
-        <ptnDi:waypoint x="215" y="75"/>
-        <ptnDi:waypoint x="285" y="115"/>
-        <ptnDi:label>
-          <dc:Bounds x="250" y="95" width="30" height="30"/>
-        </ptnDi:label>
-      </ptnDi:ptnEdge>
-    </ptnDi:ptnPlane>
-  </ptnDi:ptnDiagram>
+<ptn:definitions xmlns:ptn="http://bpt-lab.org/schemas/ptn"
+  xmlns:ptnDi="http://bpt-lab.org/schemas/ptnDi"
+  xmlns:dc="https://www.omg.org/spec/BPMN/20100501/DC.xsd">
+  <ptn:model id="model_1" name="x">
+    <ptn:name>Model 1</ptn:name>
+    <ptn:place id="Place_0wz6n3wtviyygy3qnapb9hs4d">
+      <ptn:name>p1</ptn:name>
+    </ptn:place>
+    <ptn:transition id="Transition_9xye6ks1ehx85rntlgjs3f00z">
+      <ptn:name>t1</ptn:name>
+    </ptn:transition>
+    <ptn:arc id="Arc_embxsw9g3z73kh0lh9f6b01ea" source="Place_0wz6n3wtviyygy3qnapb9hs4d"
+      target="Transition_9xye6ks1ehx85rntlgjs3f00z" />
+    <ptn:place id="Place_52wbr2awkwapgk30dtz3qoix9" type="ptn:Place">
+      <ptn:name>p2</ptn:name>
+      <ptn:initialMarking>2</ptn:initialMarking>
+    </ptn:place>
+    <ptn:arc id="Arc_8p57h6umjvngmwnlvu3j4hyth" source="Transition_9xye6ks1ehx85rntlgjs3f00z"
+      target="Place_52wbr2awkwapgk30dtz3qoix9" type="ptn:Arc">
+      <ptn:inscription>2</ptn:inscription>
+    </ptn:arc>
+  </ptn:model>
+  <ptnDi:diagram id="model_1_di">
+    <ptnDi:plane id="model_1_plane" modelElement="model_1">
+      <ptnDi:diagramShape id="Place_0wz6n3wtviyygy3qnapb9hs4d_di"
+        modelElement="Place_0wz6n3wtviyygy3qnapb9hs4d">
+        <dc:Bounds x="275" y="245" width="50" height="50" />
+        <ptnDi:diagramLabel>
+          <dc:Bounds x="283" y="302" width="36" height="39" />
+        </ptnDi:diagramLabel>
+      </ptnDi:diagramShape>
+      <ptnDi:diagramShape id="Transition_9xye6ks1ehx85rntlgjs3f00z_di"
+        modelElement="Transition_9xye6ks1ehx85rntlgjs3f00z">
+        <dc:Bounds x="375" y="245" width="50" height="50" />
+      </ptnDi:diagramShape>
+      <ptnDi:diagramEdge id="Arc_embxsw9g3z73kh0lh9f6b01ea_di"
+        modelElement="Arc_embxsw9g3z73kh0lh9f6b01ea">
+        <ptnDi:waypoint x="325" y="270" />
+        <ptnDi:waypoint x="375" y="270" />
+      </ptnDi:diagramEdge>
+      <ptnDi:diagramShape id="Place_52wbr2awkwapgk30dtz3qoix9_di"
+        modelElement="Place_52wbr2awkwapgk30dtz3qoix9">
+        <dc:Bounds x="475" y="245" width="50" height="50" />
+        <ptnDi:diagramLabel>
+          <dc:Bounds x="482" y="302" width="36" height="39" />
+        </ptnDi:diagramLabel>
+      </ptnDi:diagramShape>
+      <ptnDi:diagramEdge id="Arc_8p57h6umjvngmwnlvu3j4hyth_di"
+        modelElement="Arc_8p57h6umjvngmwnlvu3j4hyth">
+        <ptnDi:waypoint x="425" y="270" />
+        <ptnDi:waypoint x="475" y="270" />
+        <ptnDi:diagramLabel>
+          <dc:Bounds x="441" y="230" width="18" height="39" />
+        </ptnDi:diagramLabel>
+      </ptnDi:diagramEdge>
+    </ptnDi:plane>
+  </ptnDi:diagram>
 </ptn:definitions>

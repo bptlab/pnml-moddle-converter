@@ -9,59 +9,80 @@ import { PnmlTransition } from "../pnml/PnmlTransition";
 
 const initialMarkingOffset = { x: 22, y: 20 };
 
-export function convertModdleToPnml(moddleDefinitions: ModdleDefinitions): PnmlDocument {
+export function convertModdleToPnml(
+  moddleDefinitions: ModdleDefinitions
+): PnmlDocument {
+  const places = moddleDefinitions.model.places.map(
+    (place) =>
+      new PnmlPlace({
+        id: place.id,
+        label: place.name,
+        initialMarking: place.marking > 0 ? place.marking : undefined,
+        nodePosition: place.bounds
+          ? {
+              x: place.bounds.x,
+              y: place.bounds.y,
+            }
+          : undefined,
+        labelOffset:
+          place.bounds && place.labelBounds
+            ? {
+                x: place.bounds.x - place.labelBounds.x,
+                y: place.bounds.y - place.labelBounds.y,
+              }
+            : undefined,
+        initialMarkingOffset:
+          place.marking > 0 ? initialMarkingOffset : undefined,
+      })
+  );
 
-  const places = moddleDefinitions.ptNet.places.map((place) => (new PnmlPlace({
-    id: place.id,
-    label: place.name,
-    initialMarking: place.marking > 0 ? place.marking : undefined,
-    nodePosition: place.bounds ? {
-      x: place.bounds.x,
-      y: place.bounds.y
-    } : undefined,
-    labelOffset: place.bounds && place.labelBounds ? {
-      x: place.bounds.x - place.labelBounds.x,
-      y: place.bounds.y - place.labelBounds.y,
-    } : undefined,
-    initialMarkingOffset: place.marking > 0 ? initialMarkingOffset : undefined
-  })));
+  const transitions = moddleDefinitions.model.transitions.map(
+    (transition) =>
+      new PnmlTransition({
+        id: transition.id,
+        label: transition.name,
+        nodePosition: transition.bounds
+          ? {
+              x: transition.bounds.x,
+              y: transition.bounds.y,
+            }
+          : undefined,
+        labelOffset:
+          transition.bounds && transition.labelBounds
+            ? {
+                x: transition.bounds.x - transition.labelBounds.x,
+                y: transition.bounds.y - transition.labelBounds.y,
+              }
+            : undefined,
+      })
+  );
 
-  const transitions = moddleDefinitions.ptNet.transitions.map((transition) => (new PnmlTransition({
-    id: transition.id,
-    label: transition.name,
-    nodePosition: transition.bounds ? {
-      x: transition.bounds.x,
-      y: transition.bounds.y
-    } : undefined,
-    labelOffset: transition.bounds && transition.labelBounds ? {
-      x: transition.bounds.x - transition.labelBounds.x,
-      y: transition.bounds.y - transition.labelBounds.y,
-    } : undefined,
-  })));
-
-  const arcs = moddleDefinitions.ptNet.arcs.map((arc) => (new PnmlArc({
-    id: arc.id,
-    source: arc.source,
-    target: arc.target,
-    weight: arc.weight,
-  })));
+  const arcs = moddleDefinitions.model.arcs.map(
+    (arc) =>
+      new PnmlArc({
+        id: arc.id,
+        source: arc.source,
+        target: arc.target,
+        inscription: arc.inscription,
+      })
+  );
 
   const page = new PnmlPage({
-    id: 'ptnet_page_1',
+    id: `${moddleDefinitions.model.id ?? "model"}_page_1`,
     places,
     transitions,
-    arcs
+    arcs,
   });
 
   const net = new PnmlNet({
-    id: moddleDefinitions.ptNet.id ?? 'ptnet_id_1',
-    name: moddleDefinitions.ptNet.name,
+    id: moddleDefinitions.model.id ?? "model_id_1",
+    name: moddleDefinitions.model.name,
     type: PnmlNetType.PtNet,
     pages: [page],
   });
 
   const pnmlDocument = new PnmlDocument({
-    nets: [net]
+    nets: [net],
   });
 
   return pnmlDocument;

@@ -3,24 +3,24 @@ import { Serializable, ISerializable } from "../helper/Serializable";
 import { IModdlePlace } from "./ModdlePlace";
 import { IModdleTransition } from "./ModdleTransition";
 import { IModdleArc } from "./ModdleArc";
-import { ModdleXmlPTNet } from "./interfaces/ModdleXml";
-export interface IModdlePTNetData {
+import { ModdleXmlModel } from "./interfaces/ModdleXml";
+export interface IModdleModelData {
     id?: string | undefined;
     name?: string | undefined;
     places: IModdlePlace[];
     transitions: IModdleTransition[];
     arcs: IModdleArc[];
 }
-export interface IModdlePTNet extends IModdlePTNetData, ISerializable {
+export interface IModdleModel extends IModdleModelData, ISerializable {
 }
-export declare class ModdlePTNet extends Serializable implements IModdlePTNet {
+export declare class ModdleModel extends Serializable implements IModdleModel {
     id?: string | undefined;
     name?: string | undefined;
     places: IModdlePlace[];
     transitions: IModdleTransition[];
     arcs: IModdleArc[];
-    constructor(data: IModdlePTNetData);
+    constructor(data: IModdleModelData);
     getChildren(): ISerializable[];
     getDataForSerialization(): ExpandObject;
-    static parseFromObject(element: ModdleXmlPTNet): ModdlePTNet;
+    static parseFromObject(element: ModdleXmlModel): ModdleModel;
 }

@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertPnmlXmlToModdleXml = exports.convertPnmlToModdle = void 0;
+exports.convertPnmlToModdle = convertPnmlToModdle;
+exports.convertPnmlXmlToModdleXml = convertPnmlXmlToModdleXml;
 const ModdleArc_1 = require("../moddle/ModdleArc");
 const ModdleDefinitions_1 = require("../moddle/ModdleDefinitions");
-const ModdlePTNet_1 = require("../moddle/ModdlePTNet");
+const ModdleModel_1 = require("../moddle/ModdleModel");
 const ModdlePlace_1 = require("../moddle/ModdlePlace");
 const ModdleTransition_1 = require("../moddle/ModdleTransition");
 const pnmlParser_1 = require("../parser/pnmlParser");
@@ -15,55 +16,63 @@ const labelWidth = 50;
 const labelHeight = 30;
 function convertPnmlToModdle(pnmlDocument) {
     if (pnmlDocument.nets.length === 0) {
-        throw new Error('No net found in PNML document');
+        throw new Error("No net found in PNML document");
     }
     if (pnmlDocument.nets.length > 1) {
-        throw new Error('Multiple nets in one PNML document are not supported');
+        throw new Error("Multiple nets in one PNML document are not supported");
     }
     const pnmlNet = pnmlDocument.nets[0];
     if (pnmlNet.pages.length === 0) {
-        throw new Error('No page found in PNML net');
+        throw new Error("No page found in PNML net");
     }
     if (pnmlNet.pages.length > 1) {
-        throw new Error('Multiple pages in one PNML net are not supported');
+        throw new Error("Multiple pages in one PNML net are not supported");
     }
     const page = pnmlNet.pages[0];
     const places = page.places.map((place) => {
         var _a;
-        return (new ModdlePlace_1.ModdlePlace({
+        return new ModdlePlace_1.ModdlePlace({
             id: place.id,
             name: place.label,
             marking: (_a = place.initialMarking) !== null && _a !== void 0 ? _a : 0,
-            bounds: place.nodePosition ? {
-                x: place.nodePosition.x,
-                y: place.nodePosition.y,
-                width: placeWidth,
-                height: placeHeight,
-            } : undefined,
-            labelBounds: place.labelOffset && place.nodePosition ? {
-                x: place.nodePosition.x - place.labelOffset.x,
-                y: place.nodePosition.y - place.labelOffset.y,
-                width: labelWidth,
-                height: labelHeight,
-            } : undefined,
-        }));
+            bounds: place.nodePosition
+                ? {
+                    x: place.nodePosition.x,
+                    y: place.nodePosition.y,
+                    width: placeWidth,
+                    height: placeHeight,
+                }
+                : undefined,
+            labelBounds: place.labelOffset && place.nodePosition
+                ? {
+                    x: place.nodePosition.x - place.labelOffset.x,
+                    y: place.nodePosition.y - place.labelOffset.y,
+                    width: labelWidth,
+                    height: labelHeight,
+                }
+                : undefined,
+        });
     });
-    const transitions = page.transitions.map((transition) => (new ModdleTransition_1.ModdleTransition({
+    const transitions = page.transitions.map((transition) => new ModdleTransition_1.ModdleTransition({
         id: transition.id,
         name: transition.label,
-        bounds: transition.nodePosition ? {
-            x: transition.nodePosition.x,
-            y: transition.nodePosition.y,
-            width: transitionWidth,
-            height: transitionHeight,
-        } : undefined,
-        labelBounds: transition.labelOffset && transition.nodePosition ? {
-            x: transition.nodePosition.x - transition.labelOffset.x,
-            y: transition.nodePosition.y - transition.labelOffset.y,
-            width: labelWidth,
-            height: labelHeight,
-        } : undefined,
-    })));
+        bounds: transition.nodePosition
+            ? {
+                x: transition.nodePosition.x,
+                y: transition.nodePosition.y,
+                width: transitionWidth,
+                height: transitionHeight,
+            }
+            : undefined,
+        labelBounds: transition.labelOffset && transition.nodePosition
+            ? {
+                x: transition.nodePosition.x - transition.labelOffset.x,
+                y: transition.nodePosition.y - transition.labelOffset.y,
+                width: labelWidth,
+                height: labelHeight,
+            }
+            : undefined,
+    }));
     const arcs = page.arcs.map((arc) => {
         // Find the source and target nodes
         const nodes = [...places, ...transitions];
@@ -73,8 +82,8 @@ function convertPnmlToModdle(pnmlDocument) {
         let sourceWaypoint = { x: 0, y: 0 };
         let targetWaypoint = { x: 0, y: 0 };
         if (source && target && source.bounds && target.bounds) {
-            const { x: sourceX, y: sourceY, width: sourceW, height: sourceH } = source.bounds;
-            const { x: targetX, y: targetY, width: targetW, height: targetH } = target.bounds;
+            const { x: sourceX, y: sourceY, width: sourceW, height: sourceH, } = source.bounds;
+            const { x: targetX, y: targetY, width: targetW, height: targetH, } = target.bounds;
             // Determine if source and target are horizontally or vertically aligned
             const sourceIsLeft = sourceX + sourceW < targetX;
             const sourceIsRight = sourceX > targetX + targetW;
@@ -90,8 +99,8 @@ function convertPnmlToModdle(pnmlDocument) {
             const sourceHeight = sourceH !== null && sourceH !== void 0 ? sourceH : (sourceIsPlace ? placeHeight : transitionHeight);
             const targetWidth = targetW !== null && targetW !== void 0 ? targetW : (targetIsPlace ? placeWidth : transitionWidth);
             const targetHeight = targetH !== null && targetH !== void 0 ? targetH : (targetIsPlace ? placeHeight : transitionHeight);
-            const horizontalDistance = Math.abs((sourceX + sourceWidth / 2) - (targetX + targetWidth / 2));
-            const verticalDistance = Math.abs((sourceY + sourceHeight / 2) - (targetY + targetHeight / 2));
+            const horizontalDistance = Math.abs(sourceX + sourceWidth / 2 - (targetX + targetWidth / 2));
+            const verticalDistance = Math.abs(sourceY + sourceHeight / 2 - (targetY + targetHeight / 2));
             if (horizontalDistance >= verticalDistance) {
                 const sourceIsLeft = sourceX + sourceW < targetX;
                 sourceWaypoint = {
@@ -100,7 +109,7 @@ function convertPnmlToModdle(pnmlDocument) {
                         : sourceIsLeft
                             ? sourceX + sourceWidth
                             : sourceX,
-                    y: sourceY + sourceHeight / 2
+                    y: sourceY + sourceHeight / 2,
                 };
                 targetWaypoint = {
                     x: horizontallyAligned
@@ -108,7 +117,7 @@ function convertPnmlToModdle(pnmlDocument) {
                         : sourceIsLeft
                             ? targetX
                             : targetX + targetWidth,
-                    y: targetY + targetHeight / 2
+                    y: targetY + targetHeight / 2,
                 };
             }
             else {
@@ -119,7 +128,7 @@ function convertPnmlToModdle(pnmlDocument) {
                         ? sourceY + sourceHeight / 2
                         : sourceIsOver
                             ? sourceY + sourceHeight
-                            : sourceY
+                            : sourceY,
                 };
                 targetWaypoint = {
                     x: targetX + targetWidth / 2,
@@ -127,7 +136,7 @@ function convertPnmlToModdle(pnmlDocument) {
                         ? targetY + targetHeight / 2
                         : sourceIsOver
                             ? targetY
-                            : targetY + targetHeight
+                            : targetY + targetHeight,
                 };
             }
         }
@@ -136,23 +145,21 @@ function convertPnmlToModdle(pnmlDocument) {
             id: arc.id,
             source: arc.source,
             target: arc.target,
-            weight: arc.weight,
+            inscription: arc.inscription,
             waypoints: [sourceWaypoint, targetWaypoint],
         });
     });
-    const ptNet = new ModdlePTNet_1.ModdlePTNet({
+    const model = new ModdleModel_1.ModdleModel({
         id: pnmlDocument.nets[0].id,
         name: pnmlNet.name,
         places,
         transitions,
         arcs,
     });
-    const definitions = new ModdleDefinitions_1.ModdleDefinitions({ ptNet });
+    const definitions = new ModdleDefinitions_1.ModdleDefinitions({ model });
     return definitions;
 }
-exports.convertPnmlToModdle = convertPnmlToModdle;
 function convertPnmlXmlToModdleXml(pnmlXml) {
     const pnmlDocument = (0, pnmlParser_1.parsePnmlXml)(pnmlXml);
     return convertPnmlToModdle(pnmlDocument).serialize();
 }
-exports.convertPnmlXmlToModdleXml = convertPnmlXmlToModdleXml;

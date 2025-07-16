@@ -5,11 +5,11 @@ const Serializable_1 = require("../helper/Serializable");
 class PnmlArc extends Serializable_1.Serializable {
     constructor(data) {
         super();
-        const { id, weight, source, target } = data;
+        const { id, inscription, source, target } = data;
         this.id = id;
         this.source = source;
         this.target = target;
-        this.weight = weight;
+        this.inscription = inscription;
     }
     getDataForSerialization() {
         const arc = {
@@ -17,9 +17,9 @@ class PnmlArc extends Serializable_1.Serializable {
             "@source": this.source,
             "@target": this.target,
         };
-        if (this.weight != undefined) {
+        if (this.inscription != undefined) {
             arc.inscription = {
-                text: this.weight.toString(),
+                text: this.inscription.toString(),
             };
         }
         return { arc };
@@ -28,8 +28,10 @@ class PnmlArc extends Serializable_1.Serializable {
         const id = element["@id"];
         const source = element["@source"];
         const target = element["@target"];
-        const weight = element.inscription ? parseInt(element.inscription.text) : undefined;
-        return new PnmlArc({ id, source, target, weight });
+        const inscription = element.inscription
+            ? element.inscription.text
+            : undefined;
+        return new PnmlArc({ id, source, target, inscription });
     }
 }
 exports.PnmlArc = PnmlArc;
