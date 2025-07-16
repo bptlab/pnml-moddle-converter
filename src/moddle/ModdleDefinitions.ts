@@ -1,26 +1,35 @@
 import { ExpandObject, XMLBuilder } from "xmlbuilder2/lib/interfaces";
 import { Serializable, ISerializable } from "../helper/Serializable";
-import { ModdlePTNet, IModdlePTNet } from "./ModdlePTNet";
-import { ModdleXmlDefinitions, ModdleXmlDiagram, ModdleXmlEdge, ModdleXmlShape } from "./interfaces/ModdleXml";
+import {
+  ModdleXmlDefinitions,
+  ModdleXmlDiagram,
+  ModdleXmlEdge,
+  ModdleXmlShape,
+} from "./interfaces/ModdleXml";
+import { ModdleModel, IModdleModel } from "./ModdleModel";
 
 export interface IModdleDefinitionsData {
-  ptNet: IModdlePTNet;
+  model: IModdleModel;
 }
 
-export interface IModdleDefinitions extends IModdleDefinitionsData, ISerializable {}
+export interface IModdleDefinitions
+  extends IModdleDefinitionsData,
+    ISerializable {}
 
-export class ModdleDefinitions extends Serializable implements IModdleDefinitions {
-
-  ptNet: IModdlePTNet;
+export class ModdleDefinitions
+  extends Serializable
+  implements IModdleDefinitions
+{
+  model: IModdleModel;
 
   constructor(data: IModdleDefinitionsData) {
     super();
-    const { ptNet } = data;
-    this.ptNet = ptNet;
+    const { model } = data;
+    this.model = model;
   }
 
   getChildren(): ISerializable[] {
-    return [this.ptNet];
+    return [this.model];
   }
 
   getDataForSerialization(): ExpandObject {
@@ -35,7 +44,7 @@ export class ModdleDefinitions extends Serializable implements IModdleDefinition
 
   /**
    * Definitions specifies the elements as well as graphical information of the model.
-   * Since the graphical information is stored in the children of the PTNet, this method
+   * Since the graphical information is stored in the children of the Model, this method
    * is overwritten to append the graphical information to the XMLBuilder.
    * @returns XMLBuilder with diagram data
    */
@@ -43,69 +52,93 @@ export class ModdleDefinitions extends Serializable implements IModdleDefinition
     const xmlBuilder = super.toXmlBuilder();
 
     const diagram: ModdleXmlDiagram = {
-      "@id": `${this.ptNet.id}_di`,
-      "ptnDi:ptnPlane": {
-        "@id": `${this.ptNet.id}_plane`,
-        "@ptnElement": this.ptNet.id,
-        "ptnDi:ptnShape": [
-          ...this.ptNet.places.map(place => place.getDiagramDataForSerialization()),
-          ...this.ptNet.transitions.map(transition => transition.getDiagramDataForSerialization()),
+      "@id": `${this.model.id}_di`,
+      "ptnDi:plane": {
+        "@id": `${this.model.id}_plane`,
+        "@modelElement": this.model.id,
+        "ptnDi:diagramShape": [
+          ...this.model.places.map((place) =>
+            place.getDiagramDataForSerialization()
+          ),
+          ...this.model.transitions.map((transition) =>
+            transition.getDiagramDataForSerialization()
+          ),
         ],
-        "ptnDi:ptnEdge": this.ptNet.arcs.map(arc => arc.getDiagramDataForSerialization()),
-      }
-    }
+        "ptnDi:diagramEdge": this.model.arcs.map((arc) =>
+          arc.getDiagramDataForSerialization()
+        ),
+      },
+    };
 
-    const diagramBuilder = this.getXmlBuilder({ "ptnDi:ptnDiagram": diagram });
+    const diagramBuilder = this.getXmlBuilder({ "ptnDi:diagram": diagram });
     xmlBuilder.import(diagramBuilder);
     return xmlBuilder;
   }
 
   static parseFromObject(element: ModdleXmlDefinitions): ModdleDefinitions {
-    const ptNet = element["ptn:ptNet"];
-    if (!ptNet) throw new Error("No PTNet found in Definitions");
-    const definitions = new ModdleDefinitions({ ptNet: ModdlePTNet.parseFromObject(ptNet) });
-    
-    const diagram = element["ptnDi:ptnDiagram"];
-    if (diagram && diagram["ptnDi:ptnPlane"]) {
-      const plane = diagram["ptnDi:ptnPlane"];
-      let shapes = plane["ptnDi:ptnShape"] ?? (plane["#"] ? plane["#"]
-        .filter((shape) => shape["ptnDi:ptnShape"] !== undefined)
-        .flatMap((shape) => Array.isArray(shape["ptnDi:ptnShape"]) 
-          ? shape["ptnDi:ptnShape"] 
-          : [shape["ptnDi:ptnShape"]]) : []);
+    const model = element["ptn:model"];
+    if (!model) throw new Error("No Model found in Definitions");
+    const definitions = new ModdleDefinitions({
+      model: ModdleModel.parseFromObject(model),
+    });
+
+    const diagram = element["ptnDi:diagram"];
+    if (diagram && diagram["ptnDi:plane"]) {
+      const plane = diagram["ptnDi:plane"];
+      let shapes =
+        plane["ptnDi:diagramShape"] ??
+        (plane["#"]
+          ? plane["#"]
+              .filter((shape) => shape["ptnDi:diagramShape"] !== undefined)
+              .flatMap((shape) =>
+                Array.isArray(shape["ptnDi:diagramShape"])
+                  ? shape["ptnDi:diagramShape"]
+                  : [shape["ptnDi:diagramShape"]]
+              )
+          : []);
       if (!Array.isArray(shapes)) {
         shapes = [shapes];
       }
       const shapeArray = shapes as ModdleXmlShape[];
 
-      let edges = plane["ptnDi:ptnEdge"] ?? (plane["#"] ? plane["#"]
-        .filter((edge) => edge["ptnDi:ptnEdge"] !== undefined)
-        .flatMap((edge) => Array.isArray(edge["ptnDi:ptnEdge"]) 
-          ? edge["ptnDi:ptnEdge"] 
-          : [edge["ptnDi:ptnEdge"]]) : []);
+      let edges =
+        plane["ptnDi:diagramEdge"] ??
+        (plane["#"]
+          ? plane["#"]
+              .filter((edge) => edge["ptnDi:diagramEdge"] !== undefined)
+              .flatMap((edge) =>
+                Array.isArray(edge["ptnDi:diagramEdge"])
+                  ? edge["ptnDi:diagramEdge"]
+                  : [edge["ptnDi:diagramEdge"]]
+              )
+          : []);
       if (!Array.isArray(edges)) {
         edges = [edges];
       }
       const edgeArray = edges as ModdleXmlEdge[];
-      
-      const {places, transitions, arcs} = definitions.ptNet;
 
-      places.forEach(place => {
-        const shape = shapeArray.find(shape => shape["@ptnElement"] === place.id)
+      const { places, transitions, arcs } = definitions.model;
+
+      places.forEach((place) => {
+        const shape = shapeArray.find(
+          (shape) => shape["@modelElement"] === place.id
+        );
         if (shape) {
           place.parseFromShape(shape);
         }
       });
 
-      transitions.forEach(transition => {
-        const shape = shapeArray.find((shape) => shape["@ptnElement"] === transition.id)
+      transitions.forEach((transition) => {
+        const shape = shapeArray.find(
+          (shape) => shape["@modelElement"] === transition.id
+        );
         if (shape) {
           transition.parseFromShape(shape);
         }
       });
 
-      arcs.forEach(arc => {
-        const edge = edgeArray.find((edge) => edge["@ptnElement"] === arc.id)
+      arcs.forEach((arc) => {
+        const edge = edgeArray.find((edge) => edge["@modelElement"] === arc.id);
         if (edge) {
           arc.parseFromEdge(edge);
         }

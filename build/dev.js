@@ -10,8 +10,12 @@ const pnmlToModdle_1 = require("./converter/pnmlToModdle");
 const moddleParser_1 = require("./parser/moddleParser");
 const moddleToPnml_1 = require("./converter/moddleToPnml");
 const pnmlParser_1 = require("./parser/pnmlParser");
-const moddleXml = fs_1.default.readFileSync("./resources/moddle/example.xml", { encoding: "utf-8" });
-const pnmlXml = fs_1.default.readFileSync("./resources/pnml/example.pnml", { encoding: "utf-8" });
+const moddleXml = fs_1.default.readFileSync("./resources/moddle/example2.xml", {
+    encoding: "utf-8",
+});
+const pnmlXml = fs_1.default.readFileSync("./resources/pnml/example.pnml", {
+    encoding: "utf-8",
+});
 // Parse a XML file including a Moddle.js place transition net specification
 const moddleDefinitions = (0, moddleParser_1.parseModdleXml)(moddleXml);
 // Serialize a ModdleDefinitions object into a string
@@ -28,3 +32,4 @@ const pnmlXml2 = pnmlDocument.serialize();
 const moddleDefinitionsFromPnml = (0, pnmlToModdle_1.convertPnmlToModdle)(pnmlDocument);
 // Directly convert a PNML to a Moddle XML
 const moddleXmlFromPnmlXml = (0, pnmlToModdle_1.convertPnmlXmlToModdleXml)(pnmlXml);
+const pnmlBack = (0, moddleToPnml_1.convertModdleXmlToPnmlXml)(moddleXmlFromPnmlXml);

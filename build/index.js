@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertPnmlXmlToModdleXml = exports.convertPnmlToModdle = exports.convertModdleXmlToPnmlXml = exports.convertModdleToPnml = exports.parsePnmlXml = exports.parseModdleXml = exports.PnmlTransition = exports.PnmlPlace = exports.PnmlPage = exports.PnmlNet = exports.PnmlDocument = exports.PnmlArc = exports.ModdleTransition = exports.ModdlePlace = exports.ModdlePTNet = exports.ModdleDefinitions = exports.ModdleArc = void 0;
+exports.convertPnmlXmlToModdleXml = exports.convertPnmlToModdle = exports.convertModdleXmlToPnmlXml = exports.convertModdleToPnml = exports.parsePnmlXml = exports.parseModdleXml = exports.PnmlTransition = exports.PnmlPlace = exports.PnmlPage = exports.PnmlNet = exports.PnmlDocument = exports.PnmlArc = exports.ModdleTransition = exports.ModdlePlace = exports.ModdleModel = exports.ModdleDefinitions = exports.ModdleArc = void 0;
 // Classes
 // Moddle
 var ModdleArc_1 = require("./moddle/ModdleArc");
 Object.defineProperty(exports, "ModdleArc", { enumerable: true, get: function () { return ModdleArc_1.ModdleArc; } });
 var ModdleDefinitions_1 = require("./moddle/ModdleDefinitions");
 Object.defineProperty(exports, "ModdleDefinitions", { enumerable: true, get: function () { return ModdleDefinitions_1.ModdleDefinitions; } });
-var ModdlePTNet_1 = require("./moddle/ModdlePTNet");
-Object.defineProperty(exports, "ModdlePTNet", { enumerable: true, get: function () { return ModdlePTNet_1.ModdlePTNet; } });
+var ModdleModel_1 = require("./moddle/ModdleModel");
+Object.defineProperty(exports, "ModdleModel", { enumerable: true, get: function () { return ModdleModel_1.ModdleModel; } });
 var ModdlePlace_1 = require("./moddle/ModdlePlace");
 Object.defineProperty(exports, "ModdlePlace", { enumerable: true, get: function () { return ModdlePlace_1.ModdlePlace; } });
 var ModdleTransition_1 = require("./moddle/ModdleTransition");

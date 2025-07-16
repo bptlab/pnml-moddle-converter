@@ -8,7 +8,7 @@ export interface IModdleArcData {
     id: string;
     source: string;
     target: string;
-    weight?: number | undefined;
+    inscription?: string;
     waypoints?: ModdlePoint[] | undefined;
     labelBounds?: ModdleBounds | undefined;
 }
@@ -20,9 +20,9 @@ export declare class ModdleArc extends Serializable implements IModdleArc {
     id: string;
     source: string;
     target: string;
-    weight?: number | undefined;
-    waypoints?: ModdlePoint[] | undefined;
-    labelBounds?: ModdleBounds | undefined;
+    inscription?: string;
+    waypoints?: ModdlePoint[];
+    labelBounds?: ModdleBounds;
     constructor(data: IModdleArcData);
     getDiagramDataForSerialization(): ModdleXmlEdge;
     getDataForSerialization(): ExpandObject;

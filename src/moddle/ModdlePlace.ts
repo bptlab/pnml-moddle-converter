@@ -12,13 +12,15 @@ export interface IModdlePlaceData {
   labelBounds?: ModdleBounds | undefined;
 }
 
-export interface IModdlePlace extends IModdlePlaceData, IModdleDiagramNode, ISerializable {
+export interface IModdlePlace
+  extends IModdlePlaceData,
+    IModdleDiagramNode,
+    ISerializable {
   getDiagramDataForSerialization(): ModdleXmlShape;
   parseFromShape(shape: ModdleXmlShape): void;
 }
 
 export class ModdlePlace extends Serializable implements IModdlePlace {
-
   id: string;
   name?: string | undefined;
   marking: number;
@@ -38,31 +40,35 @@ export class ModdlePlace extends Serializable implements IModdlePlace {
   getDiagramDataForSerialization(): ModdleXmlShape {
     const shape: ModdleXmlShape = {
       "@id": `${this.id}_di`,
-      "@ptnElement": this.id,
-      "dc:Bounds": this.bounds ? {
-        "@x": this.bounds.x.toString(),
-        "@y": this.bounds.y.toString(),
-        "@width": this.bounds.width.toString(),
-        "@height": this.bounds.height.toString(),
-      } : undefined,
-      "ptnDi:label": this.labelBounds ? {
-        "dc:Bounds": {
-          "@x": this.labelBounds.x.toString(),
-          "@y": this.labelBounds.y.toString(),
-          "@width": this.labelBounds.width.toString(),
-          "@height": this.labelBounds.height.toString(),
-        }
-      } : undefined,
-    }
+      "@modelElement": this.id,
+      "dc:Bounds": this.bounds
+        ? {
+            "@x": this.bounds.x.toString(),
+            "@y": this.bounds.y.toString(),
+            "@width": this.bounds.width.toString(),
+            "@height": this.bounds.height.toString(),
+          }
+        : undefined,
+      "ptnDi:diagramLabel": this.labelBounds
+        ? {
+            "dc:Bounds": {
+              "@x": this.labelBounds.x.toString(),
+              "@y": this.labelBounds.y.toString(),
+              "@width": this.labelBounds.width.toString(),
+              "@height": this.labelBounds.height.toString(),
+            },
+          }
+        : undefined,
+    };
 
     return shape;
   }
 
   getDataForSerialization(): ExpandObject {
-    const place: ModdleXmlPlace = { 
+    const place: ModdleXmlPlace = {
       "@id": this.id,
-      "@name": this.name,
-      "@marking": this.marking.toString(),
+      "ptn:name": this.name,
+      "ptn:initialMarking": this.marking.toString(),
     };
 
     return { "ptn:place": place };
@@ -70,26 +76,30 @@ export class ModdlePlace extends Serializable implements IModdlePlace {
 
   static parseFromObject(element: ModdleXmlPlace): ModdlePlace {
     const id = element["@id"];
-    const name = element["@name"];
-    const marking = parseInt(element["@marking"] ?? "0");
-    
+    const name = element["ptn:name"];
+    const marking = parseInt(element["ptn:initialMarking"] ?? "0");
+
     return new ModdlePlace({ id, name, marking });
   }
 
   parseFromShape(shape: ModdleXmlShape): void {
     const bounds = shape["dc:Bounds"];
-    const label = shape["ptnDi:label"];
-    this.bounds = (bounds ? {
-      x: parseInt(bounds["@x"]),
-      y: parseInt(bounds["@y"]),
-      width: parseInt(bounds["@width"]),
-      height: parseInt(bounds["@height"]),
-    } : undefined);
-    this.labelBounds = (label ? {
-      x: parseInt(label["dc:Bounds"]["@x"]),
-      y: parseInt(label["dc:Bounds"]["@y"]),
-      width: parseInt(label["dc:Bounds"]["@width"]),
-      height: parseInt(label["dc:Bounds"]["@height"]),
-    } : undefined);
+    const label = shape["ptnDi:diagramLabel"];
+    this.bounds = bounds
+      ? {
+          x: parseInt(bounds["@x"]),
+          y: parseInt(bounds["@y"]),
+          width: parseInt(bounds["@width"]),
+          height: parseInt(bounds["@height"]),
+        }
+      : undefined;
+    this.labelBounds = label
+      ? {
+          x: parseInt(label["dc:Bounds"]["@x"]),
+          y: parseInt(label["dc:Bounds"]["@y"]),
+          width: parseInt(label["dc:Bounds"]["@width"]),
+          height: parseInt(label["dc:Bounds"]["@height"]),
+        }
+      : undefined;
   }
 }

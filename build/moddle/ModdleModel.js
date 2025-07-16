@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModdlePTNet = void 0;
+exports.ModdleModel = void 0;
 const Serializable_1 = require("../helper/Serializable");
 const ModdlePlace_1 = require("./ModdlePlace");
 const ModdleTransition_1 = require("./ModdleTransition");
 const ModdleArc_1 = require("./ModdleArc");
-class ModdlePTNet extends Serializable_1.Serializable {
+class ModdleModel extends Serializable_1.Serializable {
     constructor(data) {
         super();
         const { id, name, places, transitions, arcs } = data;
@@ -19,20 +19,26 @@ class ModdlePTNet extends Serializable_1.Serializable {
         return [...this.places, ...this.transitions, ...this.arcs];
     }
     getDataForSerialization() {
-        const ptNet = {
+        const model = {
             "@id": this.id,
-            "@name": this.name,
+            "ptn:name": this.name,
         };
-        return { "ptn:ptNet": ptNet };
+        return { "ptn:model": model };
     }
     static parseFromObject(element) {
         var _a, _b;
         const id = (_a = element["@id"]) !== null && _a !== void 0 ? _a : (element["@"] ? element["@"]["id"] : undefined);
-        const name = (_b = element["@name"]) !== null && _b !== void 0 ? _b : (element["@"] ? element["@"]["id"] : undefined);
+        let name = undefined;
+        if (element["ptn:name"]) {
+            name = element["ptn:name"];
+        }
+        else if (element["#"] !== undefined) {
+            name = (_b = element["#"].find((child) => child["ptn:name"] !== undefined)) === null || _b === void 0 ? void 0 : _b["ptn:name"];
+        }
         let places = [];
         if (element["ptn:place"]) {
             if (Array.isArray(element["ptn:place"])) {
-                places = element["ptn:place"].map(place => ModdlePlace_1.ModdlePlace.parseFromObject(place));
+                places = element["ptn:place"].map((place) => ModdlePlace_1.ModdlePlace.parseFromObject(place));
             }
             else {
                 places = [ModdlePlace_1.ModdlePlace.parseFromObject(element["ptn:place"])];
@@ -40,12 +46,12 @@ class ModdlePTNet extends Serializable_1.Serializable {
         }
         else if (element["#"] !== undefined) {
             places = element["#"]
-                .filter(child => child["ptn:place"] !== undefined)
+                .filter((child) => child["ptn:place"] !== undefined)
                 .flatMap((child) => {
                 const place = child["ptn:place"];
                 return Array.isArray(place) ? place : [place];
             })
-                .map(place => ModdlePlace_1.ModdlePlace.parseFromObject(place));
+                .map((place) => ModdlePlace_1.ModdlePlace.parseFromObject(place));
         }
         let transitions = [];
         if (element["ptn:transition"]) {
@@ -53,17 +59,19 @@ class ModdlePTNet extends Serializable_1.Serializable {
                 transitions = element["ptn:transition"].map((transition) => ModdleTransition_1.ModdleTransition.parseFromObject(transition));
             }
             else {
-                transitions = [ModdleTransition_1.ModdleTransition.parseFromObject(element["ptn:transition"])];
+                transitions = [
+                    ModdleTransition_1.ModdleTransition.parseFromObject(element["ptn:transition"]),
+                ];
             }
         }
         else if (element["#"] !== undefined) {
             transitions = element["#"]
-                .filter(child => child["ptn:transition"] !== undefined)
+                .filter((child) => child["ptn:transition"] !== undefined)
                 .flatMap((child) => {
                 const transition = child["ptn:transition"];
                 return Array.isArray(transition) ? transition : [transition];
             })
-                .map(transition => ModdleTransition_1.ModdleTransition.parseFromObject(transition));
+                .map((transition) => ModdleTransition_1.ModdleTransition.parseFromObject(transition));
         }
         let arcs = [];
         if (element["ptn:arc"]) {
@@ -76,14 +84,14 @@ class ModdlePTNet extends Serializable_1.Serializable {
         }
         else if (element["#"] !== undefined) {
             arcs = element["#"]
-                .filter(child => child["ptn:arc"] !== undefined)
+                .filter((child) => child["ptn:arc"] !== undefined)
                 .flatMap((child) => {
                 const arc = child["ptn:arc"];
                 return Array.isArray(arc) ? arc : [arc];
             })
-                .map(arc => ModdleArc_1.ModdleArc.parseFromObject(arc));
+                .map((arc) => ModdleArc_1.ModdleArc.parseFromObject(arc));
         }
-        return new ModdlePTNet({ id, name, places, transitions, arcs });
+        return new ModdleModel({ id, name, places, transitions, arcs });
     }
 }
-exports.ModdlePTNet = ModdlePTNet;
+exports.ModdleModel = ModdleModel;

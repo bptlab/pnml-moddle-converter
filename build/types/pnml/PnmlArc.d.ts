@@ -5,7 +5,7 @@ export interface IPnmlArcData {
     id: string;
     source: string;
     target: string;
-    weight?: number | undefined;
+    inscription?: string;
 }
 export interface IPnmlArc extends IPnmlArcData, ISerializable {
 }
@@ -13,7 +13,7 @@ export declare class PnmlArc extends Serializable implements IPnmlArc {
     id: string;
     source: string;
     target: string;
-    weight: number | undefined;
+    inscription?: string;
     constructor(data: IPnmlArcData);
     getDataForSerialization(): ExpandObject;
     static parseFromObject(element: PnmlXmlArc): PnmlArc;
