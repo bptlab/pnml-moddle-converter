@@ -9,6 +9,7 @@ export interface IModdleTransitionData {
   name?: string | undefined;
   bounds?: ModdleBounds | undefined;
   labelBounds?: ModdleBounds | undefined;
+  isSilent?: boolean | undefined;
 }
 
 export interface IModdleTransition
@@ -27,14 +28,16 @@ export class ModdleTransition
   name?: string | undefined;
   bounds?: ModdleBounds | undefined;
   labelBounds?: ModdleBounds | undefined;
+  isSilent?: boolean | undefined;
 
   constructor(data: IModdleTransitionData) {
     super();
-    const { id, name, bounds, labelBounds } = data;
+    const { id, name, bounds, labelBounds, isSilent } = data;
     this.id = id;
     this.name = name;
     this.bounds = bounds;
     this.labelBounds = labelBounds;
+    this.isSilent = isSilent;
   }
 
   getDiagramDataForSerialization(): ModdleXmlShape {
@@ -67,6 +70,7 @@ export class ModdleTransition
   getDataForSerialization(): ExpandObject {
     const transition: ExpandObject = {
       "@id": this.id,
+      "@isSilent": this.isSilent,
       "ptn:name": this.name,
     };
 
@@ -76,8 +80,9 @@ export class ModdleTransition
   static parseFromObject(element: ModdleXmlTransition): ModdleTransition {
     const id = element["@id"];
     const name = element["ptn:name"];
+    const isSilent = element["@isSilent"];
 
-    return new ModdleTransition({ id, name });
+    return new ModdleTransition({ id, name, isSilent });
   }
 
   parseFromShape(shape: ModdleXmlShape): void {

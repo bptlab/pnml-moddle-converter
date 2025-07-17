@@ -13,7 +13,7 @@ import {
 } from "./converter/moddleToPnml";
 import { parsePnmlXml } from "./parser/pnmlParser";
 
-const moddleXml = fs.readFileSync("./resources/moddle/example2.xml", {
+const moddleXml = fs.readFileSync("./resources/moddle/example.xml", {
   encoding: "utf-8",
 });
 const pnmlXml = fs.readFileSync("./resources/pnml/example.pnml", {
@@ -38,5 +38,3 @@ const pnmlXml2 = pnmlDocument.serialize();
 const moddleDefinitionsFromPnml = convertPnmlToModdle(pnmlDocument);
 // Directly convert a PNML to a Moddle XML
 const moddleXmlFromPnmlXml = convertPnmlXmlToModdleXml(pnmlXml);
-
-const pnmlBack = convertModdleXmlToPnmlXml(moddleXmlFromPnmlXml);

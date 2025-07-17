@@ -33,6 +33,7 @@ function convertModdleToPnml(moddleDefinitions) {
     const transitions = moddleDefinitions.model.transitions.map((transition) => new PnmlTransition_1.PnmlTransition({
         id: transition.id,
         label: transition.name,
+        silent: transition.isSilent,
         nodePosition: transition.bounds
             ? {
                 x: transition.bounds.x,

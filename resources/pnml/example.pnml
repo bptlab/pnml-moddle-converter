@@ -9,16 +9,16 @@
         <name>
           <text>place_1</text>
           <graphics>
-            <offset x="0" y="0"/>
+            <offset x="0" y="0" />
           </graphics>
         </name>
         <graphics>
-          <position x="100" y="100"/>
+          <position x="100" y="100" />
         </graphics>
         <initialMarking>
           <text>1</text>
           <graphics>
-            <offset x="22" y="20"/>
+            <offset x="22" y="20" />
           </graphics>
         </initialMarking>
       </place>
@@ -26,23 +26,35 @@
         <name>
           <text>place_2</text>
           <graphics>
-            <offset x="0" y="0"/>
+            <offset x="0" y="0" />
           </graphics>
         </name>
         <graphics>
-          <position x="300" y="100"/>
+          <position x="300" y="100" />
         </graphics>
       </place>
       <transition id="transition_1">
         <name>
           <text>transition_1</text>
           <graphics>
-            <offset x="0" y="0"/>
+            <offset x="0" y="0" />
           </graphics>
         </name>
         <graphics>
-          <position x="200" y="100"/>
+          <position x="200" y="100" />
         </graphics>
+      </transition>
+      <transition id="transition_2">
+        <name>
+          <text>silent transition</text>
+          <graphics>
+            <offset x="0" y="0" />
+          </graphics>
+        </name>
+        <graphics>
+          <position x="200" y="100" />
+        </graphics>
+        <silent>true</silent>
       </transition>
       <arc id="arc_1" source="place_1" target="transition_1">
         <inscription>

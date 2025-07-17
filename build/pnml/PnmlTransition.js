@@ -5,11 +5,12 @@ const Serializable_1 = require("../helper/Serializable");
 class PnmlTransition extends Serializable_1.Serializable {
     constructor(data) {
         super();
-        const { id, label, nodePosition, labelOffset } = data;
+        const { id, label, nodePosition, labelOffset, silent } = data;
         this.id = id;
         this.label = label;
         this.nodePosition = nodePosition;
         this.labelOffset = labelOffset;
+        this.silent = silent;
     }
     getDataForSerialization() {
         const transition = { "@id": this.id };
@@ -26,6 +27,7 @@ class PnmlTransition extends Serializable_1.Serializable {
                 };
             }
         }
+        transition.silent = this.silent ? "true" : undefined;
         if (this.nodePosition !== undefined) {
             transition.graphics = {
                 position: {
@@ -40,6 +42,7 @@ class PnmlTransition extends Serializable_1.Serializable {
         var _a, _b, _c, _d;
         const id = element["@id"];
         const label = (_a = element.name) === null || _a === void 0 ? void 0 : _a.text;
+        const silent = element.silent === "true" ? true : undefined;
         const labelOffset = ((_c = (_b = element.name) === null || _b === void 0 ? void 0 : _b.graphics) === null || _c === void 0 ? void 0 : _c.offset)
             ? {
                 x: parseInt(element.name.graphics.offset["@x"]),
@@ -52,7 +55,7 @@ class PnmlTransition extends Serializable_1.Serializable {
                 y: parseInt(element.graphics.position["@y"]),
             }
             : undefined;
-        return new PnmlTransition({ id, label, nodePosition, labelOffset });
+        return new PnmlTransition({ id, label, nodePosition, labelOffset, silent });
     }
 }
 exports.PnmlTransition = PnmlTransition;

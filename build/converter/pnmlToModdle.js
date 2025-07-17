@@ -35,44 +35,52 @@ function convertPnmlToModdle(pnmlDocument) {
             id: place.id,
             name: place.label,
             marking: (_a = place.initialMarking) !== null && _a !== void 0 ? _a : 0,
-            bounds: place.nodePosition
+            bounds: {
+                x: place.nodePosition ? place.nodePosition.x : 0,
+                y: place.nodePosition ? place.nodePosition.y : 0,
+                width: placeWidth,
+                height: placeHeight,
+            },
+            labelBounds: place.labelOffset
                 ? {
-                    x: place.nodePosition.x,
-                    y: place.nodePosition.y,
-                    width: placeWidth,
-                    height: placeHeight,
-                }
-                : undefined,
-            labelBounds: place.labelOffset && place.nodePosition
-                ? {
-                    x: place.nodePosition.x - place.labelOffset.x,
-                    y: place.nodePosition.y - place.labelOffset.y,
+                    x: place.nodePosition
+                        ? place.nodePosition.x - place.labelOffset.x
+                        : 0,
+                    y: place.nodePosition
+                        ? place.nodePosition.y - place.labelOffset.y
+                        : 0,
                     width: labelWidth,
                     height: labelHeight,
                 }
                 : undefined,
         });
     });
-    const transitions = page.transitions.map((transition) => new ModdleTransition_1.ModdleTransition({
-        id: transition.id,
-        name: transition.label,
-        bounds: transition.nodePosition
-            ? {
-                x: transition.nodePosition.x,
-                y: transition.nodePosition.y,
+    const transitions = page.transitions.map((transition) => {
+        var _a;
+        return new ModdleTransition_1.ModdleTransition({
+            id: transition.id,
+            name: transition.label,
+            isSilent: (_a = transition.silent) !== null && _a !== void 0 ? _a : false,
+            bounds: {
+                x: transition.nodePosition ? transition.nodePosition.x : 0,
+                y: transition.nodePosition ? transition.nodePosition.y : 0,
                 width: transitionWidth,
                 height: transitionHeight,
-            }
-            : undefined,
-        labelBounds: transition.labelOffset && transition.nodePosition
-            ? {
-                x: transition.nodePosition.x - transition.labelOffset.x,
-                y: transition.nodePosition.y - transition.labelOffset.y,
-                width: labelWidth,
-                height: labelHeight,
-            }
-            : undefined,
-    }));
+            },
+            labelBounds: transition.labelOffset
+                ? {
+                    x: transition.nodePosition
+                        ? transition.nodePosition.x - transition.labelOffset.x
+                        : 0,
+                    y: transition.nodePosition
+                        ? transition.nodePosition.y - transition.labelOffset.y
+                        : 0,
+                    width: labelWidth,
+                    height: labelHeight,
+                }
+                : undefined,
+        });
+    });
     const arcs = page.arcs.map((arc) => {
         // Find the source and target nodes
         const nodes = [...places, ...transitions];

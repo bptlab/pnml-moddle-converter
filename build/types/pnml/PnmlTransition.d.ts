@@ -7,6 +7,7 @@ export interface IPnmlTransitionData {
     label?: string | undefined;
     nodePosition?: PnmlPosition | undefined;
     labelOffset?: PnmlPosition | undefined;
+    silent?: boolean | undefined;
 }
 export interface IPnmlTransition extends IPnmlTransitionData, ISerializable {
 }
@@ -15,6 +16,7 @@ export declare class PnmlTransition extends Serializable implements IPnmlTransit
     label: string | undefined;
     nodePosition: PnmlPosition | undefined;
     labelOffset: PnmlPosition | undefined;
+    silent: boolean | undefined;
     constructor(data: IPnmlTransitionData);
     getDataForSerialization(): ExpandObject;
     static parseFromObject(element: PnmlXmlTransition): PnmlTransition;

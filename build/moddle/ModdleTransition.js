@@ -5,11 +5,12 @@ const Serializable_1 = require("../helper/Serializable");
 class ModdleTransition extends Serializable_1.Serializable {
     constructor(data) {
         super();
-        const { id, name, bounds, labelBounds } = data;
+        const { id, name, bounds, labelBounds, isSilent } = data;
         this.id = id;
         this.name = name;
         this.bounds = bounds;
         this.labelBounds = labelBounds;
+        this.isSilent = isSilent;
     }
     getDiagramDataForSerialization() {
         const shape = {
@@ -39,6 +40,7 @@ class ModdleTransition extends Serializable_1.Serializable {
     getDataForSerialization() {
         const transition = {
             "@id": this.id,
+            "@isSilent": this.isSilent,
             "ptn:name": this.name,
         };
         return { "ptn:transition": transition };
@@ -46,7 +48,8 @@ class ModdleTransition extends Serializable_1.Serializable {
     static parseFromObject(element) {
         const id = element["@id"];
         const name = element["ptn:name"];
-        return new ModdleTransition({ id, name });
+        const isSilent = element["@isSilent"];
+        return new ModdleTransition({ id, name, isSilent });
     }
     parseFromShape(shape) {
         const bounds = shape["dc:Bounds"];

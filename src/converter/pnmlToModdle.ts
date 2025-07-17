@@ -42,23 +42,24 @@ export function convertPnmlToModdle(
         id: place.id,
         name: place.label,
         marking: place.initialMarking ?? 0,
-        bounds: place.nodePosition
+        bounds: {
+          x: place.nodePosition ? place.nodePosition.x : 0,
+          y: place.nodePosition ? place.nodePosition.y : 0,
+          width: placeWidth,
+          height: placeHeight,
+        },
+        labelBounds: place.labelOffset
           ? {
-              x: place.nodePosition.x,
-              y: place.nodePosition.y,
-              width: placeWidth,
-              height: placeHeight,
+              x: place.nodePosition
+                ? place.nodePosition.x - place.labelOffset.x
+                : 0,
+              y: place.nodePosition
+                ? place.nodePosition.y - place.labelOffset.y
+                : 0,
+              width: labelWidth,
+              height: labelHeight,
             }
           : undefined,
-        labelBounds:
-          place.labelOffset && place.nodePosition
-            ? {
-                x: place.nodePosition.x - place.labelOffset.x,
-                y: place.nodePosition.y - place.labelOffset.y,
-                width: labelWidth,
-                height: labelHeight,
-              }
-            : undefined,
       })
   );
 
@@ -67,23 +68,25 @@ export function convertPnmlToModdle(
       new ModdleTransition({
         id: transition.id,
         name: transition.label,
-        bounds: transition.nodePosition
+        isSilent: transition.silent ?? false,
+        bounds: {
+          x: transition.nodePosition ? transition.nodePosition.x : 0,
+          y: transition.nodePosition ? transition.nodePosition.y : 0,
+          width: transitionWidth,
+          height: transitionHeight,
+        },
+        labelBounds: transition.labelOffset
           ? {
-              x: transition.nodePosition.x,
-              y: transition.nodePosition.y,
-              width: transitionWidth,
-              height: transitionHeight,
+              x: transition.nodePosition
+                ? transition.nodePosition.x - transition.labelOffset.x
+                : 0,
+              y: transition.nodePosition
+                ? transition.nodePosition.y - transition.labelOffset.y
+                : 0,
+              width: labelWidth,
+              height: labelHeight,
             }
           : undefined,
-        labelBounds:
-          transition.labelOffset && transition.nodePosition
-            ? {
-                x: transition.nodePosition.x - transition.labelOffset.x,
-                y: transition.nodePosition.y - transition.labelOffset.y,
-                width: labelWidth,
-                height: labelHeight,
-              }
-            : undefined,
       })
   );
 

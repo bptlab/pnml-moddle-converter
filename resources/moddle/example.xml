@@ -10,6 +10,9 @@
     <ptn:transition id="Transition_9xye6ks1ehx85rntlgjs3f00z">
       <ptn:name>t1</ptn:name>
     </ptn:transition>
+    <ptn:transition id="Transition_9xye6ks1ehx85rntlgjs3f00y" isSilent="true">
+      <ptn:name>t2</ptn:name>
+    </ptn:transition>
     <ptn:arc id="Arc_embxsw9g3z73kh0lh9f6b01ea" source="Place_0wz6n3wtviyygy3qnapb9hs4d"
       target="Transition_9xye6ks1ehx85rntlgjs3f00z" />
     <ptn:place id="Place_52wbr2awkwapgk30dtz3qoix9" type="ptn:Place">
@@ -29,6 +32,10 @@
         <ptnDi:diagramLabel>
           <dc:Bounds x="283" y="302" width="36" height="39" />
         </ptnDi:diagramLabel>
+      </ptnDi:diagramShape>
+      <ptnDi:diagramShape id="Transition_9xye6ks1ehx85rntlgjs3f00y_di"
+        modelElement="Transition_9xye6ks1ehx85rntlgjs3f00y">
+        <dc:Bounds x="375" y="345" width="50" height="50" />
       </ptnDi:diagramShape>
       <ptnDi:diagramShape id="Transition_9xye6ks1ehx85rntlgjs3f00z_di"
         modelElement="Transition_9xye6ks1ehx85rntlgjs3f00z">

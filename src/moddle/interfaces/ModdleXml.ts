@@ -31,6 +31,7 @@ export interface ModdleXmlPlace {
 
 export interface ModdleXmlTransition {
   "@id": string;
+  "@isSilent"?: boolean | undefined;
   "ptn:name"?: string | undefined;
 }
 

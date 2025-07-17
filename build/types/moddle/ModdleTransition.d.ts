@@ -8,6 +8,7 @@ export interface IModdleTransitionData {
     name?: string | undefined;
     bounds?: ModdleBounds | undefined;
     labelBounds?: ModdleBounds | undefined;
+    isSilent?: boolean | undefined;
 }
 export interface IModdleTransition extends IModdleTransitionData, IModdleDiagramNode, ISerializable {
     getDiagramDataForSerialization(): ModdleXmlShape;
@@ -18,6 +19,7 @@ export declare class ModdleTransition extends Serializable implements IModdleTra
     name?: string | undefined;
     bounds?: ModdleBounds | undefined;
     labelBounds?: ModdleBounds | undefined;
+    isSilent?: boolean | undefined;
     constructor(data: IModdleTransitionData);
     getDiagramDataForSerialization(): ModdleXmlShape;
     getDataForSerialization(): ExpandObject;

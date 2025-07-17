@@ -41,6 +41,7 @@ export function convertModdleToPnml(
       new PnmlTransition({
         id: transition.id,
         label: transition.name,
+        silent: transition.isSilent,
         nodePosition: transition.bounds
           ? {
               x: transition.bounds.x,

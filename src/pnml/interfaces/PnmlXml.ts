@@ -7,6 +7,7 @@ export interface PnmlXmlTransition {
   "@id": string;
   name?: PnmlXmlTextWithGraphics | undefined;
   graphics?: PnmlXmlGraphics | undefined;
+  silent?: string | undefined;
 }
 
 export interface PnmlXmlPlace {
